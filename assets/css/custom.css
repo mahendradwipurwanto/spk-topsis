@@ -1,0 +1,83 @@
+.page-item .page-link,
+.page-item span {
+	padding: 0px 5px !important;
+	border-radius: none !important;
+	min-width: 36px !important;
+}
+
+/* SCROLL BAR */
+/* width */
+
+::-webkit-scrollbar {
+	width: 10px;
+	height: 10px;
+	cursor: pointer;
+}
+
+
+/* Track */
+
+::-webkit-scrollbar-track {
+	background: #f1f1f1;
+	cursor: pointer;
+}
+
+
+/* Handle */
+
+::-webkit-scrollbar-thumb {
+	background: #0B4C8A;
+	opacity: 0.5;
+	cursor: pointer;
+}
+
+
+/* Handle on hover */
+
+/* datatables override */
+::-webkit-scrollbar-thumb:hover {
+	background: #0B4C8A;
+	opacity: 0.9;
+	cursor: pointer !important;
+}
+
+.dataTables_paginate,
+.dataTables_filter {
+	float: right !important;
+}
+
+.dataTables_length>label {
+	display: flex;
+	align-items: center;
+}
+
+.dataTables_length>label>select {
+	display: flex;
+	align-items: center;
+	margin: 0px 5px;
+	width: auto !important;
+}
+
+.dataTables_filter>label {
+	display: flex;
+	align-items: center;
+}
+
+.dataTables_filter>label>input {
+	display: flex;
+	align-items: center;
+	margin: 0px 5px;
+	width: auto !important;
+}
+
+/* custom */
+
+footer {
+	position: fixed;
+	width: 100%;
+	bottom: 15px;
+}
+
+.select2 {
+	width: 100% !important;
+}
