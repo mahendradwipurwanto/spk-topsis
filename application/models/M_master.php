@@ -290,10 +290,15 @@ class M_master extends CI_Model
         ->from('tb_penilaian a')
         ->join('tb_penduduk b', 'a.penduduk_id = b.id')
         ->where(['a.is_deleted' => 0])
-        ->group_by('a.penduduk_id')
         ;
         
         $models = $this->db->get()->result();
+        
+        $models = array_reverse(array_values(array_column(
+            array_reverse($models),
+            null,
+            'penduduk_id'
+        )));
 
         foreach($models as $key => $val){
             $models[$key]->kategori_penduduk = $this->getKategoriByPenduduk($val->id);
