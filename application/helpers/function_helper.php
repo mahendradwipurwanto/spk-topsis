@@ -25,6 +25,62 @@ if (!function_exists('ej')) {
 if (!function_exists('time_ago')) {
     function time_ago($datetime, $full = false)
     {
+
+        $now = new DateTime();
+        $ago = new DateTime($datetime);
+        $diff = $now->diff($ago);
+
+        $diff->w = floor($diff->d / 7);
+        $diff->d -= $diff->w * 7;
+
+        $string = array(
+            'y' => 'tahun',
+            'm' => 'bulan',
+            'w' => 'minggu',
+            'd' => 'hari',
+            'h' => 'jam',
+            'i' => 'menit',
+            's' => 'detik',
+        );
+        foreach ($string as $k => &$v) {
+            if ($diff->$k) {
+                $v = $diff->$k . ' ' . $v . ($diff->$k > 1 ? '' : '');
+            } else {
+                unset($string[$k]);
+            }
+        }
+
+        if (!$full) {
+            $string = array_slice($string, 0, 1);
+        }
+        return $string ? implode(', ', $string) . ' yang lalu' : 'baru saja';
+
+    }
+}
+
+if (!function_exists('sendMail')) {
+    function sendMail($email, $subject, $message)
+    {
+        $_ci = &get_instance();
+        $_ci->load->library('mailer');
+
+        $mail = [
+            'to' => $email,
+            'subject' => $subject,
+            'message' => $message
+        ];
+
+        if ($_ci->mailer->send($mail) == true) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+}
+    
+if (!function_exists('penalty_remaining')) {
+    function penalty_remaining($datetime, $full = false)
+    {
         // $datetime = date(" Y - m - d H : i : s ", time()+120);
         $now = new DateTime;
         $ago = new DateTime($datetime);
@@ -47,5 +103,26 @@ if (!function_exists('time_ago')) {
             }
         }
         return $a;
+    }
+}
+
+if (!function_exists('arrToObj')) {
+    function arrToObj($data) {
+    if (gettype($data) == 'array')
+        return (object)array_map("arrToObj", $data);
+    else
+        return $data;
+    }
+}
+
+if (!function_exists('rand_string')) {
+    function rand_string($length = 10) {
+        $characters = '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ';
+        $charactersLength = strlen($characters);
+        $randomString = '';
+        for ($i = 0; $i < $length; $i++) {
+            $randomString .= $characters[rand(0, $charactersLength - 1)];
+        }
+        return $randomString;
     }
 }

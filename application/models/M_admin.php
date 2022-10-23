@@ -20,4 +20,40 @@ class M_admin extends CI_Model
             'kriteria' => $kriteria
         ];
     }
+
+    function ubahInformasiWebsite(){
+        // WEBSITE
+        $this->db->where('key', 'web_title');
+        $this->db->update('tb_settings', ['value' => $this->input->post('web_title')]);
+
+        $this->db->where('key', 'web_desc');
+        $this->db->update('tb_settings', ['value' => $this->input->post('web_desc')]);
+
+        // $this->db->where('key', 'web_logo');
+        // $this->db->update('tb_settings', ['web_logo' => $this->input->post('web_logo')]);
+
+        // $this->db->where('key', 'web_icon');
+        // $this->db->update('tb_settings', ['web_icon' => $this->input->post('web_icon')]);
+   
+        // MAILER
+        $this->db->where('key', 'mailer_alias');
+        $this->db->update('tb_settings', ['value' => $this->input->post('mailer_alias')]);
+
+        $this->db->where('key', 'mailer_connection');
+        $this->db->update('tb_settings', ['value' => $this->input->post('mailer_connection')]);
+
+        $this->db->where('key', 'mailer_host');
+        $this->db->update('tb_settings', ['value' => $this->input->post('mailer_host')]);
+
+        $this->db->where('key', 'mailer_port');
+        $this->db->update('tb_settings', ['value' => $this->input->post('mailer_port')]);
+
+        $this->db->where('key', 'mailer_username');
+        $this->db->update('tb_settings', ['value' => $this->input->post('mailer_username')]);
+
+        $this->db->where('key', 'mailer_password');
+        $this->db->update('tb_settings', ['value' => $this->input->post('mailer_password')]);
+
+        return true;
+    }
 }

@@ -84,14 +84,14 @@
       							<div class="d-flex flex-column">
       								<h6 class="mb-1 text-dark text-sm"><?= $val->kategori;?></h6>
       								<span class="text-xs"><span
-      										class="font-weight-bold"><?= $val->kode;?></span>bobot,
+      										class="font-weight-bold"><?= $val->kode;?></span>, bobot
       									<?= number_format($val->bobot);?> poin</span>
       							</div>
-								<div class="ms-5 text-xs">
+      						</div>
+      						<div class="d-flex align-items-center">
+								<div class="me-2 text-xs">
 									<span class="badge bg-<?= $val->jenis == 1 ? 'success' : 'danger';?>"><?= $val->jenis == 1 ? 'Pendapatan' : 'Pengeluaran';?></span>
 								</div>
-      						</div>
-      						<div class="d-flex">
       							<a href="<?= site_url('master/kategori');?>"
       								class="btn btn-link btn-icon-only btn-rounded btn-sm text-dark icon-move-right my-auto"><i
       									class="ni ni-bold-right" aria-hidden="true"></i></a>
@@ -128,7 +128,7 @@
       									<div>
       										<div
       											class="icon icon-shape icon-sm me-3 bg-gradient-dark shadow text-center">
-      											<i class="fas fa-box text-white opacity-10"></i>
+      											<i class="fas fa-clipboard-list text-white opacity-10"></i>
       										</div>
       									</div>
       									<div class="ms-4">
@@ -138,13 +138,13 @@
       								</div>
       							</td>
       							<td>
-      								<div class="text-center">
+      								<div class="text-left">
       									<p class="text-xs font-weight-bold mb-0">Nilai:</p>
       									<h6 class="text-sm mb-0"><?= $val->nilai;?> poin</h6>
       								</div>
       							</td>
       							<td>
-      								<div class="text-center">
+      								<div class="text-left">
       									<p class="text-xs font-weight-bold mb-0">Induk kategori:</p>
       									<h6 class="text-sm mb-0"><?= $val->kategori;?></h6>
       								</div>

@@ -8,9 +8,10 @@
 				</h4>
 			</div>
 			<div class="card-body pt-0">
-				<table class="table align-items-center w-100 mb-0" id="table">
+				<table class="table table-bordered table-hover align-items-center w-100 mb-0" id="myTable">
 					<thead>
 						<tr>
+							<th width="5%" class="text-uppercase text-left px-2 text-secondary text-xs font-weight-bolder opacity-7">No</th>
 							<th width="20%" class="text-uppercase text-left px-2 text-secondary text-xs font-weight-bolder opacity-7">Nama</th>
 							<th width="10%" class="text-uppercase text-left px-2 text-secondary text-xs font-weight-bolder opacity-7 ps-2">Nomor
 								KK</th>
@@ -25,6 +26,9 @@
 						<?php if(!empty($penduduk)):?>
 						<?php $no = 1;foreach($penduduk as $key => $val):?>
 						<tr>
+							<td class="align-middle">
+								<span class="text-secondary"><?= $no;?></span>
+							</td>
 							<td>
 								<div class="d-flex px-2 py-1">
 									<div class="d-flex flex-column justify-content-center">
@@ -43,11 +47,11 @@
 								<span class="text-secondary"><?= $val->alamat;?></span>
 							</td>
 							<td class="align-middle">
-								<button class="btn btn-secondary btn-xs" data-bs-toggle="modal"
+								<button class="btn btn-secondary btn-xs mb-0" data-bs-toggle="modal"
 									data-bs-target="#edit-<?= $val->id;?>">
 									Edit
 								</button>
-								<button class="btn btn-danger btn-xs" data-bs-toggle="modal"
+								<button class="btn btn-danger btn-xs mb-0" data-bs-toggle="modal"
 									data-bs-target="#delete-<?= $val->id;?>">
 									Hapus
 								</button>
@@ -60,7 +64,7 @@
 							<div class="modal-dialog modal-dialog-centered" role="document">
 								<div class="modal-content">
 									<div class="modal-header">
-										<h5 class="modal-title" id="exampleModalLabel">Tambah penduduk</h5>
+										<h5 class="modal-title" id="exampleModalLabel">Edit penduduk</h5>
 										<button type="button" class="btn-close" data-bs-dismiss="modal"
 											aria-label="Close">
 											<span aria-hidden="true">&times;</span>
@@ -72,7 +76,7 @@
 											<div class="mb-3">
 												<label for="formNamaPenduduk">Nama Lengkap</label>
 												<input type="text" class="form-control form-control-sm" name="nama"
-													value="<?= $val->nama;?> penduduk"
+													value="<?= $val->nama;?>"
 													placeholder="Nama Lengkap penduduk" required>
 											</div>
 											<div class="mb-3">

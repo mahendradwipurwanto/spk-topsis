@@ -43,7 +43,7 @@
   						class="icon icon-shape icon-sm border-radius-md text-center me-2 d-flex align-items-center justify-content-center">
   						<i class="fas fa-boxes text-primary text-sm opacity-10"></i>
   					</div>
-  					<span class="nav-link-text ms-1">Data Kategori</span>
+  					<span class="nav-link-text ms-1">Data Kriteria</span>
   				</a>
   			</li>
   			<li class="nav-item" id="sidebar-kriteria">
@@ -53,15 +53,15 @@
   						class="icon icon-shape icon-sm border-radius-md text-center me-2 d-flex align-items-center justify-content-center">
   						<i class="fas fa-clipboard-list text-primary text-sm opacity-10"></i>
   					</div>
-  					<span class="nav-link-text ms-1">Data Kriteria</span>
+  					<span class="nav-link-text ms-1">Data Sub Kriteria</span>
   				</a>
   			</li>
   			<li class="nav-item mt-3">
   				<h6 class="ps-4 ms-2 text-uppercase text-xs font-weight-bolder opacity-6">Penilaian</h6>
   			</li>
   			<li class="nav-item" id="sidebar-penilaian">
-  				<a class="nav-link <?= $this->uri->segment(1) == 'penilaian' && $this->uri->segment(2) == 'master' ? 'active' : '';?>"
-  					href="<?= site_url('penilaian/master');?>">
+  				<a class="nav-link <?= $this->uri->segment(1) == 'master' && $this->uri->segment(2) == 'penilaian' ? 'active' : '';?>"
+  					href="<?= site_url('master/penilaian');?>">
   					<div
   						class="icon icon-shape icon-sm border-radius-md text-center me-2 d-flex align-items-center justify-content-center">
   						<i class="fas fa-stamp text-primary text-sm opacity-10"></i>

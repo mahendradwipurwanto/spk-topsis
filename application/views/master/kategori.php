@@ -2,17 +2,18 @@
 	<div class="col-xl-12 mb-4">
 		<div class="card">
 			<div class="card-header pb-0">
-				<h4 class="card-title-header">Data Kategori
+				<h4 class="card-title-header">Data Kriteria
 					<button type="button" class="btn btn-primary btn-sm float-end" data-bs-toggle="modal"
-						data-bs-target="#tambah"><i class="fas fa-user-plus"></i> Tambah</button>
+						data-bs-target="#tambah"><i class="fas fa-plus"></i> Tambah</button>
 				</h4>
 			</div>
 			<div class="card-body pt-0">
-				<table class="table align-items-center w-100 mb-0" id="table">
+				<table class="table table-bordered table-hover align-items-center w-100 mb-0" id="myTable">
 					<thead>
 						<tr>
-							<th width="20%" class="text-uppercase text-secondary text-left px-2 text-xs font-weight-bolder opacity-7">
-								Kategori</th>
+							<th width="20%"
+								class="text-uppercase text-secondary text-left px-2 text-xs font-weight-bolder opacity-7">
+								Kriteria</th>
 							<th width="10%"
 								class="text-uppercase text-secondary text-left px-2 text-xs font-weight-bolder opacity-7">
 								Bobot</th>
@@ -38,7 +39,7 @@
 								</div>
 							</td>
 							<td class="align-middle">
-								<span class="text-secondary font-weight-bold"><?= $val->bobot;?> poin</span>
+								<span class="text-secondary"><?= $val->bobot;?> poin</span>
 							</td>
 							<td class="align-middle text-sm">
 								<span class="text-secondary font-weight-bold"><span
@@ -48,11 +49,11 @@
 								<span class="text-secondary"><?= $val->keterangan;?></span>
 							</td>
 							<td class="align-middle">
-								<button class="btn btn-secondary font-weight-bold btn-xs" data-bs-toggle="modal"
+								<button class="btn btn-secondary font-weight-bold btn-xs mb-0" data-bs-toggle="modal"
 									data-bs-target="#edit-<?= $val->id;?>">
 									Edit
 								</button>
-								<button class="btn btn-danger font-weight-bold btn-xs" data-bs-toggle="modal"
+								<button class="btn btn-danger font-weight-bold btn-xs mb-0" data-bs-toggle="modal"
 									data-bs-target="#delete-<?= $val->id;?>">
 									Hapus
 								</button>
@@ -65,7 +66,7 @@
 							<div class="modal-dialog modal-dialog-centered" role="document">
 								<div class="modal-content">
 									<div class="modal-header">
-										<h5 class="modal-title" id="exampleModalLabel">Tambah kategori</h5>
+										<h5 class="modal-title" id="exampleModalLabel">Edit kriteria</h5>
 										<button type="button" class="btn-close" data-bs-dismiss="modal"
 											aria-label="Close">
 											<span aria-hidden="true">&times;</span>
@@ -75,29 +76,34 @@
 										<form action="<?= site_url('master/editKategori');?>" method="POST">
 											<input type="hidden" name="id" value="<?= $val->id;?>">
 											<div class="mb-3">
-												<label for="formNamaKategori">Nama Kategori</label>
+												<label for="formNamaKategori">Nama kriteria</label>
 												<input type="text" class="form-control form-control-sm" name="kategori"
-													value="<?= $val->kategori;?>" placeholder="Nama Kategori" required>
+													value="<?= $val->kategori;?>" placeholder="Nama kriteria" required>
 											</div>
 											<div class="mb-3">
 												<label for="formBobotKategori">Bobot</label>
-												<input type="text" class="form-control form-control-sm"
-													id="formBobotKategori" name="bobot" placeholder="Bobot kategori"
-													value="<?= $val->bobot;?>"
-													required>
+												<div class="input-group">
+													<input type="number" class="form-control form-control-sm"
+														id="formBobotKategori" name="bobot" placeholder="Bobot kategori"
+														value="<?= $val->bobot;?>" aria-describedby="basic-bobot"
+														min="1" max="5" required>
+													<span class="input-group-text" id="basic-bobot">1 s.d. 5</span>
+												</div>
 											</div>
 											<div class="mb-3">
-												<label>Jenis Kategori</label>
+												<label>Jenis kriteria</label>
 												<div class="d-flex align-items-center">
 													<div class="form-check">
 														<input class="form-check-input" type="radio" name="jenis"
-															id="radioPendapatan" value="1" <?= $val->jenis == 1 ? 'checked' : '';?>>
+															id="radioPendapatan" value="1"
+															<?= $val->jenis == 1 ? 'checked' : '';?>>
 														<label class="custom-control-label"
 															for="radioPendapatan">Pendapatan</label>
 													</div>
 													<div class="form-check ms-2">
 														<input class="form-check-input" type="radio" name="jenis"
-															id="radioPengeluaran" value="2" <?= $val->jenis == 2 ? 'checked' : '';?>>
+															id="radioPengeluaran" value="2"
+															<?= $val->jenis == 2 ? 'checked' : '';?>>
 														<label class="custom-control-label"
 															for="radioPengeluaran">Pengeluaran</label>
 													</div>
@@ -130,7 +136,7 @@
 											<input type="hidden" name="id" value="<?= $val->id;?>">
 											<div class="py-3 text-center">
 												<i class="ni ni-bell-55 ni-3x"></i>
-												<h4 class="text-gradient text-danger mt-4">Hapus data kategori?</h4>
+												<h4 class="text-gradient text-danger mt-4">Hapus data kriteria?</h4>
 												<p>Apakah anda yakin ingin menghapus data ini?</p>
 											</div>
 											<div class="modal-footer px-0 pb-0 mb-0">
@@ -161,7 +167,7 @@
 	<div class="modal-dialog modal-dialog-centered" role="document">
 		<div class="modal-content">
 			<div class="modal-header">
-				<h5 class="modal-title" id="exampleModalLabel">Tambah kategori</h5>
+				<h5 class="modal-title" id="exampleModalLabel">Tambah kriteria</h5>
 				<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close">
 					<span aria-hidden="true">&times;</span>
 				</button>
@@ -169,17 +175,20 @@
 			<div class="modal-body">
 				<form action="<?= site_url('master/tambahKategori');?>" method="POST">
 					<div class="mb-3">
-						<label for="formNamaKategori">Nama Kategori</label>
+						<label for="formNamaKategori">Nama kriteria</label>
 						<input type="text" class="form-control form-control-sm" name="kategori"
-							placeholder="Nama Kategori" required>
+							placeholder="Nama kriteria" required>
 					</div>
 					<div class="mb-3">
 						<label for="formBobotKategori">Bobot</label>
-						<input type="text" class="form-control form-control-sm" id="formBobotKategori" name="bobot"
-							placeholder="Bobot kategori" required>
+						<div class="input-group">
+							<input type="number" class="form-control form-control-sm" id="formBobotKategori" name="bobot"
+								placeholder="Bobot kategori" aria-describedby="basic-bobot" min="1" max="5" required>
+							<span class="input-group-text" id="basic-bobot">1 s.d. 5</span>
+						</div>
 					</div>
 					<div class="mb-3">
-						<label>Jenis Kategori</label>
+						<label>Jenis kriteria</label>
 						<div class="d-flex align-items-center">
 							<div class="form-check">
 								<input class="form-check-input" type="radio" name="jenis" id="radioPendapatan" value="1"

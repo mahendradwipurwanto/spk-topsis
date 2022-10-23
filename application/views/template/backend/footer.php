@@ -1,4 +1,5 @@
-<footer class="footer pt-3  ">
+<br><br>
+<footer class="footer py-2 bg-white">
 	<div class="container-fluid">
 		<div class="row align-items-center justify-content-lg-between">
 			<div class="col-lg-6 mb-lg-0 mb-4">
@@ -62,13 +63,22 @@
 	}
 
 	// choices
-	new Choices(document.getElementById("choices-button"), {});
+	if(document.getElementById("choices-button")){
+		new Choices(document.getElementById("choices-button"), {});
+	}
 
 	$(document).ready(function () {
 		// datatables
 		$('table.table').each(function () {
-			$($(this).attr('id')).DataTable({
-				responsive: true
+			$('#'+$(this).attr('id')).DataTable({
+				"language": {
+					"emptyTable": '<div class="text-center p-4">' +
+						'<img class="mb-3" src="<?= base_url() ?>assets/svg/illustrations/sorry.svg" alt="Image Description" style="width: 7rem;">' +
+						'<p class="mb-0">Tidak ada data untuk ditampilkan</p>' +
+						'</div>'
+				},
+				"scrollX": true,
+				"responsive": true
 			});
 		});
 

@@ -18,4 +18,21 @@ class Admin extends CI_Controller
         $data['kriteria'] = $this->M_kriteria->getKriteria(['limit' => 5]);
         $this->templateback->view('admin/dashboard', $data);
     }
+
+    public function pengaturan()
+    {
+        $data['statistik'] = $this->M_admin->getStatistik();
+        $this->templateback->view('admin/pengaturan', $data);
+    }
+
+    public function ubahInformasiWebsite()
+    {
+        if($this->M_admin->ubahInformasiWebsite() == true){
+            $this->session->set_flashdata('notif_success', 'Berhasil merubab informasi website!');
+            redirect($this->agent->referrer());
+        }else{
+            $this->session->set_flashdata('notif_warning', 'Anda tidak merubah data apapun!');
+            redirect($this->agent->referrer());
+        }
+    }
 }

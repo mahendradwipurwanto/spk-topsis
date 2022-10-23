@@ -22,6 +22,13 @@ class TemplateBack
         $data['web_icon'] = $this->getSettingsValue('web_icon');
         $data['web_logo'] = $this->getSettingsValue('web_logo');
 
+        $data['mailer_alias']          = $this->getSettingsValue('mailer_alias');
+        $data['mailer_connection']     = $this->getSettingsValue('mailer_connection');
+        $data['mailer_port']           = $this->getSettingsValue('mailer_port'); #587;
+        $data['mailer_host']           = $this->getSettingsValue('mailer_host'); #"smtp.gmail.com";
+        $data['mailer_username']       = $this->getSettingsValue('mailer_username'); #"ngodingin.indonesia@gmail.com";
+        $data['mailer_password']       = $this->getSettingsValue('mailer_password'); #"hxexyuauljnejjmq";
+
         $this->_ci->load->view('template/backend/header', $data);
         $this->_ci->load->view('template/alert', $data);
         $this->_ci->load->view('template/backend/sidebar', $data);

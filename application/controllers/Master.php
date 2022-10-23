@@ -86,7 +86,7 @@ class Master extends CI_Controller
     public function kriteria()
     {
         $data['kategori'] = $this->M_master->getkategori();
-        $data['kriteria'] = $this->M_master->getKriteria();
+        $data['kriteria'] = $this->M_master->getKategoriALl();
         $this->templateback->view('master/kriteria', $data);
     }
 
@@ -116,6 +116,45 @@ class Master extends CI_Controller
             redirect(site_url('master/kriteria'));
         }else{
             $this->session->set_flashdata('notif_warning', "Terjadi kesalahaan saat menghapus data kriteria, coba lagi nanti!");
+			redirect($this->agent->referrer());
+        }
+    }
+
+    public function penilaian()
+    {
+        $data['penilaian'] = $this->M_master->getPenilaian();
+        $data['penduduk'] = $this->M_master->getPenduduk();
+        $data['kategori'] = $this->M_master->getKategoriALl();
+        // ej($data);
+        $this->templateback->view('master/penilaian', $data);
+    }
+
+    function tambahPenilaian(){
+        if($this->M_master->tambahPenilaian() == true){
+            $this->session->set_flashdata('notif_success', "Berhasil menambahkan data penilaian!");
+            redirect(site_url('master/penilaian'));
+        }else{
+            $this->session->set_flashdata('notif_warning', "Terjadi kesalahaan saat menambahkan data penilaian, coba lagi nanti!");
+			redirect($this->agent->referrer());
+        }
+    }
+
+    function editPenilaian(){
+        if($this->M_master->editPenilaian() == true){
+            $this->session->set_flashdata('notif_success', "Berhasil mengubah data penilaian!");
+            redirect(site_url('master/penilaian'));
+        }else{
+            $this->session->set_flashdata('notif_warning', "Terjadi kesalahaan saat mengubah data penilaian, coba lagi nanti!");
+			redirect($this->agent->referrer());
+        }
+    }
+
+    function hapusPenilaian(){
+        if($this->M_master->hapusPenilaian() == true){
+            $this->session->set_flashdata('notif_success', "Berhasil menghapus data penilaian!");
+            redirect(site_url('master/penilaian'));
+        }else{
+            $this->session->set_flashdata('notif_warning', "Terjadi kesalahaan saat menghapus data penilaian, coba lagi nanti!");
 			redirect($this->agent->referrer());
         }
     }
