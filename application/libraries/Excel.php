@@ -248,20 +248,22 @@ class Excel
         $sheet = $spreadsheet->createSheet(4);
 
         // Make matrix keputusan header
-        $sheet->setCellValue('B3', 'Peringkat')
+        $sheet->setCellValue('B3', 'No')
             ->setCellValue('C3', 'Penduduk')
-            ->setCellValue('D3', 'Nilai (V)');
+            ->setCellValue('D3', 'Nilai (V)')
+            ->setCellValue('E3', 'Peringkat (kelayakan)');
             
         // set style
-        $sheet->getStyle('B3:D3')->applyFromArray($tableHeadTitle);
+        $sheet->getStyle('B3:E3')->applyFromArray($tableHeadTitle);
         
         // set auto column & text alignment
         $sheet->getStyle('B')->getAlignment()->setHorizontal('center');
         $sheet->getStyle('D')->getAlignment()->setHorizontal('center');
+        $sheet->getStyle('E')->getAlignment()->setHorizontal('center');
         
         // Set title
         $sheet->setCellValue('B1', 'Nilai Vektor (V)');
-        $sheet->mergeCells('B1:D1');
+        $sheet->mergeCells('B1:E1');
 
         // make matrix keputusan data
         $no = 1;
@@ -274,6 +276,7 @@ class Excel
 
             $sheet->setCellValue($column.$row, "='Nilai Vektor (S)'!".$tampungColumn.$rowRumus."/(SUM('Nilai Vektor (S)'!".$tampungColumn."5:".$tampungColumn.$tampungRow."))");
             // ej("='Nilai Vektor (S)'!".$tampungColumn.$rowRumus."/(SUM('Nilai Vektor (S)'!".$tampungColumn."5:".$tampungColumn.$tampungRow."))");
+            $sheet->setCellValue('E'.$row, $data['nilai_vektor_v'][$val->id]->peringkat);
             $row++;
             $rowRumus++;
         }
@@ -281,6 +284,11 @@ class Excel
         $sheet->getColumnDimension('B')->setAutoSize(true);
         $sheet->getColumnDimension('C')->setAutoSize(true);
         $sheet->getColumnDimension('D')->setAutoSize(true);
+        $sheet->getColumnDimension('E')->setAutoSize(true);
+
+        // set filter
+        $autoFilter = $sheet->getAutoFilter('B4:D'.($row-1));
+        // $columnFilter = $autoFilter->getColumn('D');
 
         // Rename sheet
         $sheet->setTitle("Nilai Vektor (V)");

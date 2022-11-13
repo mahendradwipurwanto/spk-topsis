@@ -204,12 +204,15 @@
 							<th width="10%"
 								class="text-uppercase text-secondary text-left px-2 text-xs font-weight-bolder opacity-7">
 								Penduduk</th>
-							<th width="40%"
+							<th width="30%"
 								class="text-uppercase text-secondary text-center px-2 text-xs font-weight-bolder opacity-7">
 								Perhitungan</th>
-							<th width="40%"
+							<th width="30%"
 								class="text-uppercase text-secondary text-center px-2 text-xs font-weight-bolder opacity-7">
 								Nilai (V)</th>
+							<th width="20%"
+								class="text-uppercase text-secondary text-center px-2 text-xs font-weight-bolder opacity-7">
+								Peringkat (Kelayakan)</th>
 						</tr>
 					</thead>
 					<tbody>
@@ -227,6 +230,9 @@
 							</td>
 							<td class="align-middle text-center">
 								<span class="text-secondary font-weight-bold"><?= $val->vektor_hasil;?></span>
+							</td>
+							<td class="align-middle text-center">
+								<span class="text-secondary font-weight-bold"><?= $val->peringkat;?></span>
 							</td>
 						</tr>
 						<?php endforeach;?>

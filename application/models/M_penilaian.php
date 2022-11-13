@@ -188,9 +188,15 @@ class M_penilaian extends CI_Model
             return $b->vektor_hasil <=> $a->vektor_hasil;
         });
 
+        $no = 1;
+        $arr = [];
+        foreach($models as $key => $val){
+            $arr[$val->id] = $val;
+            $arr[$val->id]->peringkat = $no++;
+        }
 
         // ej($models);
         // ej($models[0]->kategori[8]->kategori);
-        return $models;
+        return $arr;
     }
 }

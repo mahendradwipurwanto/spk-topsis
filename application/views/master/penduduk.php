@@ -107,8 +107,7 @@
 															id="radioPerempuan" value="Perempuan"
 															<?= $val->jenkel == 'Perempuan' ? 'checked' : '';?>>
 														<label class="custom-control-label"
-															for="radioPerempuan">Perempuan
-															radio</label>
+															for="radioPerempuan">Perempuan</label>
 													</div>
 												</div>
 											</div>
@@ -202,8 +201,7 @@
 							<div class="form-check ms-2">
 								<input class="form-check-input" type="radio" name="jenkel" id="radioPerempuan"
 									value="Perempuan">
-								<label class="custom-control-label" for="radioPerempuan">Perempuan
-									radio</label>
+								<label class="custom-control-label" for="radioPerempuan">Perempuan</label>
 							</div>
 						</div>
 					</div>
