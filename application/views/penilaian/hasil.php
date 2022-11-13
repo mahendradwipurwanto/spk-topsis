@@ -4,6 +4,7 @@
 			<div class="card-header pb-0">
 				<h5 class="card-title-header">Nilai Akhir Perhitungan
                     <a href="<?= site_url('penilaian/cetak-hasil');?>" class="btn btn-warning btn-sm float-end" target="_blank">Cetak</a>
+                    <a href="<?= site_url('penilaian/ekspor-hasil');?>" class="btn btn-success btn-sm float-end me-2" target="_blank">Ekspor</a>
                 </h5>
 			</div>
 			<div class="card-body pt-0">

@@ -47,4 +47,17 @@ class Penilaian extends CI_Controller
         $this->load->view('penilaian/print', $data);
         $this->load->view('template/backend/footer', $data);
     }
+
+    function ekspor_hasil(){
+        $data['kategori'] = $this->M_master->getKategoriALl();
+        $data['matrix_keputusan'] = $this->M_penilaian->getMatrixKeptusuan();
+        $data['bobot_kriteria'] = $this->M_penilaian->getBobotKriteria();
+        $data['normalisasi_bobot_kriteria'] = $this->M_penilaian->getNormalisasiBobotKriteria();
+        $data['nilai_vektor_s'] = $this->M_penilaian->getNilaiVektorS();
+        $data['nilai_vektor_v'] = $this->M_penilaian->getNilaiVektorV();
+
+        $this->load->library('excel');
+
+        $this->excel->export($data);
+    }
 }
