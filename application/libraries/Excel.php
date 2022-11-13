@@ -84,7 +84,7 @@ class Excel
         $sheet->mergeCells('B1:'.$kolomKategori.'1');
 
         // make matrix keputusan data
-        $no = 3;
+        $no = 1;
         $row = 5;
         foreach ($data['matrix_keputusan'] as $key => $val) {
             $sheet->setCellValue('B'.$row, $no++);
@@ -175,6 +175,116 @@ class Excel
 
         // Rename sheet
         $sheet->setTitle("Normalisasi Bobot Kriteria (W)");
+
+        // NILAI VEKTOR S
+        $sheet = $spreadsheet->createSheet(3);
+
+        // Make matrix keputusan header
+        $sheet->setCellValue('B3', 'No')
+            ->setCellValue('C3', 'Penduduk')
+            ->setCellValue('D3', 'Kriteria');
+            
+        $kolomKategori = 'C';
+        foreach($data['kategori'] as $key => $val){
+            $sheet->setCellValue(++$kolomKategori.'4', $val->kode);
+        }
+        
+        // merge cell
+        $sheet->mergeCells('B3:B4');
+        $sheet->getStyle('B3:B4')->getAlignment()->setVertical(\PhpOffice\PhpSpreadsheet\Style\Alignment::VERTICAL_CENTER);
+        $sheet->mergeCells('C3:C4');
+        $sheet->getStyle('C3:C4')->getAlignment()->setVertical(\PhpOffice\PhpSpreadsheet\Style\Alignment::VERTICAL_CENTER);
+        $sheet->mergeCells('D3:'.$kolomKategori.'3');
+
+        $sheet->setCellValue(++$kolomKategori.'3', 'Vektor S');
+        $sheet->mergeCells($kolomKategori.'3:'.$kolomKategori.'4');
+        $sheet->getStyle($kolomKategori.'3:'.$kolomKategori.'4')->getAlignment()->setVertical(\PhpOffice\PhpSpreadsheet\Style\Alignment::VERTICAL_CENTER);
+        // set style
+        $sheet->getStyle('B3:'.$kolomKategori.'4')->applyFromArray($tableHeadTitle);
+        
+        // set auto column & text alignment
+        $sheet->getStyle('B')->getAlignment()->setHorizontal('center');
+        $sheet->getStyle('D:'.$kolomKategori)->getAlignment()->setHorizontal('center');
+        
+        // Set title
+        $sheet->setCellValue('B1', 'Nilai Vektor (S)');
+        $sheet->mergeCells('B1:'.$kolomKategori.'1');
+
+        // make matrix keputusan data
+        $no = 1;
+        $row = 5;
+        $rowKategori = 5;
+        $tampungRow = 1;
+        $tampungColumn = 'D';
+        foreach ($data['matrix_keputusan'] as $key => $val) {
+            $sheet->setCellValue('B'.$row, $no++);
+            $sheet->setCellValue('C'.$row, $val->nama);
+            if(!empty($data['kategori'])){
+                $column = 'D';
+                $columnKategori = 'B';
+                foreach ($data['kategori'] as $k => $v) {
+                    // set formula
+                    // check if benefit or cost
+                    $jenis = $v->jenis == 1 ? +1 : -1; #times -1 if cost
+                    $sheet->setCellValue($column.$row, "='Matrix Keputusan (X)'!".$column.$row."^('Normalisasi Bobot Kriteria (W)'!".$columnKategori.$rowKategori."*".$jenis.")");
+
+                    $column++;
+                    $columnKategori++;
+                }
+            }
+
+            $sheet->setCellValue($column.$row, '=PRODUCT(D'.$row.':'.chr(ord($column) - 1).$row.')');
+            $tampungColumn = $column;
+            $row++;
+            $tampungRow = $row-1;
+        }
+
+        $sheet->getColumnDimension('C')->setAutoSize(true);
+
+        // Rename sheet
+        $sheet->setTitle("Nilai Vektor (S)");
+
+        // NILAI VEKTOR S
+        $sheet = $spreadsheet->createSheet(4);
+
+        // Make matrix keputusan header
+        $sheet->setCellValue('B3', 'Peringkat')
+            ->setCellValue('C3', 'Penduduk')
+            ->setCellValue('D3', 'Nilai (V)');
+            
+        // set style
+        $sheet->getStyle('B3:D3')->applyFromArray($tableHeadTitle);
+        
+        // set auto column & text alignment
+        $sheet->getStyle('B')->getAlignment()->setHorizontal('center');
+        $sheet->getStyle('D')->getAlignment()->setHorizontal('center');
+        
+        // Set title
+        $sheet->setCellValue('B1', 'Nilai Vektor (V)');
+        $sheet->mergeCells('B1:D1');
+
+        // make matrix keputusan data
+        $no = 1;
+        $row = 4;
+        $rowRumus = 5;
+        $column = 'D';
+        foreach ($data['matrix_keputusan'] as $key => $val) {
+            $sheet->setCellValue('B'.$row, $no++);
+            $sheet->setCellValue('C'.$row, $val->nama);
+
+            $sheet->setCellValue($column.$row, "='Nilai Vektor (S)'!".$tampungColumn.$rowRumus."/(SUM('Nilai Vektor (S)'!".$tampungColumn."5:".$tampungColumn.$tampungRow."))");
+            // ej("='Nilai Vektor (S)'!".$tampungColumn.$rowRumus."/(SUM('Nilai Vektor (S)'!".$tampungColumn."5:".$tampungColumn.$tampungRow."))");
+            $row++;
+            $rowRumus++;
+        }
+
+        $sheet->getColumnDimension('B')->setAutoSize(true);
+        $sheet->getColumnDimension('C')->setAutoSize(true);
+        $sheet->getColumnDimension('D')->setAutoSize(true);
+
+        // Rename sheet
+        $sheet->setTitle("Nilai Vektor (V)");
+
 
 
         $writer = new Xlsx($spreadsheet);

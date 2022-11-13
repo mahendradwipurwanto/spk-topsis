@@ -156,11 +156,11 @@ class M_penilaian extends CI_Model
         $models = array_reverse(array_values(array_column(
             array_reverse($models),
             null,
-            'pertanyaan_id'
+            'id'
         )));
 
         $totalBobot = $this->db->select_sum('bobot', 'total')->get('tb_kategori')->row()->total;
-
+        
         $vektor_total_hasil = 0;
         foreach($models as $key => $val){
             $models[$key]->kategori_penduduk = $this->getKategoriByPendudukVektor($val->id);
@@ -170,18 +170,19 @@ class M_penilaian extends CI_Model
                 $models[$key]->vektor_total = $vektor_total;
             }
             $vektor_total_hasil += $models[$key]->vektor_total;
+            $arr[] = $models[$key]->vektor_total;
         }
-
+        
         foreach($models as $key => $val){
             $models[$key]->vektor_hasil = ($val->vektor_total/$vektor_total_hasil);
             $models[$key]->vektor_hasil_rumus = "{$val->vektor_total} / {$vektor_total_hasil}";
         }
         
-        $models = array_reverse(array_values(array_column(
-            array_reverse($models),
-            null,
-            'id'
-        )));
+        // $models = array_reverse(array_values(array_column(
+        //     array_reverse($models),
+        //     null,
+        //     'id'
+        // )));
 
         usort($models, function($a, $b) {
             return $b->vektor_hasil <=> $a->vektor_hasil;
