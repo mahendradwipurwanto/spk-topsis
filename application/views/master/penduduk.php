@@ -27,7 +27,7 @@
 						<?php $no = 1;foreach($penduduk as $key => $val):?>
 						<tr>
 							<td class="align-middle">
-								<span class="text-secondary"><?= $no;?></span>
+								<span class="text-secondary"><?= $no++;?></span>
 							</td>
 							<td>
 								<div class="d-flex px-2 py-1">

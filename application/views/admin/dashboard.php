@@ -27,7 +27,7 @@
       				<div class="row">
       					<div class="col-8">
       						<div class="numbers">
-      							<p class="text-sm mb-0 text-uppercase font-weight-bold">Total Kategori</p>
+      							<p class="text-sm mb-0 text-uppercase font-weight-bold">Total Kriteria</p>
       							<h5 class="font-weight-bolder">
       								<?= number_format($statistik['kategori']);?>
       							</h5>
@@ -48,7 +48,7 @@
       				<div class="row">
       					<div class="col-8">
       						<div class="numbers">
-      							<p class="text-sm mb-0 text-uppercase font-weight-bold">Total Kriteria</p>
+      							<p class="text-sm mb-0 text-uppercase font-weight-bold">Total Sub Kriteria</p>
       							<h5 class="font-weight-bolder">
       								<?= number_format($statistik['kriteria']);?>
       							</h5>
@@ -69,7 +69,7 @@
       	<div class="col-lg-5">
       		<div class="card">
       			<div class="card-header pb-0 p-3">
-      				<h6 class="mb-0">Data kategori</h6>
+      				<h6 class="mb-0">Data Kriteria (Limit 5 Kriteria)</h6>
       			</div>
       			<div class="card-body p-3">
       				<ul class="list-group">
@@ -114,7 +114,7 @@
       		<div class="card ">
       			<div class="card-header pb-0 p-3">
       				<div class="d-flex justify-content-between">
-      					<h6 class="mb-2">Data Kriteria</h6>
+      					<h6 class="mb-2">Data Sub Kriteria (Limit 5 Sub Kriteria)</h6>
       				</div>
       			</div>
       			<div class="table-responsive">
