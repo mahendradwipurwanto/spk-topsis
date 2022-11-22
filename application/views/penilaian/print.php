@@ -23,7 +23,7 @@
 								Peringkat</th>
 							<th width="10%"
 								class="text-uppercase text-secondary text-left px-2 text-xs font-weight-bolder opacity-7">
-								Penduduk</th>
+								Siswa</th>
 							<th width="40%"
 								class="text-uppercase text-secondary text-center px-2 text-xs font-weight-bolder opacity-7">
 								Perhitungan</th>

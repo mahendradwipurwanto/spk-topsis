@@ -31,7 +31,7 @@
     						style="background-image: url('https://raw.githubusercontent.com/creativetimofficial/public-assets/master/argon-dashboard-pro/assets/img/signin-ill.jpg');
           background-size: cover;">
     						<span class="mask bg-gradient-primary opacity-6"></span>
-    						<h4 class="mt-5 text-white font-weight-bolder position-relative">SPK BANSOS 2022</h4>
+    						<h4 class="mt-5 text-white font-weight-bolder position-relative"><?= $web_title;?> 2022</h4>
     						<p class="text-white position-relative">Ketika kau berbagi dengan orang lain sebagian dari apa yang kau miliki, apa yang tersisa akan berlipat ganda dan tumbuh.</p>
     					</div>
     				</div>

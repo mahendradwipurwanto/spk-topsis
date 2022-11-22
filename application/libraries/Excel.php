@@ -57,7 +57,7 @@ class Excel
 
         // Make matrix keputusan header
         $sheet->setCellValue('B3', 'No')
-            ->setCellValue('C3', 'Penduduk')
+            ->setCellValue('C3', 'Siswa')
             ->setCellValue('D3', 'Kriteria');
             
         $kolomKategori = 'C';
@@ -92,7 +92,7 @@ class Excel
             if(!empty($data['kategori'])){
                 $column = 'D';
                 foreach ($data['kategori'] as $k => $v) {
-                    $sheet->setCellValue($column++.$row, $val->kategori_penduduk[$v->id]->nilai);
+                    $sheet->setCellValue($column++.$row, $val->kategori_siswa[$v->id]->nilai);
                 }
             }
 
@@ -181,7 +181,7 @@ class Excel
 
         // Make matrix keputusan header
         $sheet->setCellValue('B3', 'No')
-            ->setCellValue('C3', 'Penduduk')
+            ->setCellValue('C3', 'Siswa')
             ->setCellValue('D3', 'Kriteria');
             
         $kolomKategori = 'C';
@@ -249,7 +249,7 @@ class Excel
 
         // Make matrix keputusan header
         $sheet->setCellValue('B3', 'No')
-            ->setCellValue('C3', 'Penduduk')
+            ->setCellValue('C3', 'Siswa')
             ->setCellValue('D3', 'Nilai (V)')
             ->setCellValue('E3', 'Peringkat (kelayakan)');
             

@@ -18,7 +18,7 @@ class M_penilaian extends CI_Model
     function getMatrixKeptusuan(){
         $this->db->select('a.*, b.id, b.nama, b.nik')
         ->from('tb_penilaian a')
-        ->join('tb_penduduk b', 'a.penduduk_id = b.id')
+        ->join('tb_siswa b', 'a.siswa_id = b.id')
         ->where(['a.is_deleted' => 0])
         ;
         
@@ -27,23 +27,23 @@ class M_penilaian extends CI_Model
         $models = array_reverse(array_values(array_column(
             array_reverse($models),
             null,
-            'penduduk_id'
+            'siswa_id'
         )));
 
         foreach($models as $key => $val){
-            $models[$key]->kategori_penduduk = $this->getKategoriByPenduduk($val->id);
+            $models[$key]->kategori_siswa = $this->getKategoriBySiswa($val->id);
         }
         // ej($models);
         // ej($models[0]->kategori[8]->kategori);
         return $models;
     }
 
-    function getKategoriByPenduduk($penduduk_id){
+    function getKategoriBySiswa($siswa_id){
         $this->db->select('a.*, b.kode, b.kategori, b.bobot, c.kriteria, c.nilai')
         ->from('tb_penilaian a')
         ->join('tb_kategori b', 'a.kategori_id = b.id')
         ->join('tb_kriteria c', 'a.kriteria_id = c.id')
-        ->where(['a.penduduk_id' => $penduduk_id, 'a.is_deleted' => 0])
+        ->where(['a.siswa_id' => $siswa_id, 'a.is_deleted' => 0])
         ;
         
         $models = $this->db->get()->result();
@@ -93,7 +93,7 @@ class M_penilaian extends CI_Model
     function getNilaiVektorS(){
         $this->db->select('a.*, b.id, b.nama, b.nik')
         ->from('tb_penilaian a')
-        ->join('tb_penduduk b', 'a.penduduk_id = b.id')
+        ->join('tb_siswa b', 'a.siswa_id = b.id')
         ->where(['a.is_deleted' => 0])
         ;
         
@@ -102,15 +102,15 @@ class M_penilaian extends CI_Model
         $models = array_reverse(array_values(array_column(
             array_reverse($models),
             null,
-            'penduduk_id'
+            'siswa_id'
         )));
 
         $totalBobot = $this->db->select_sum('bobot', 'total')->get('tb_kategori')->row()->total;
 
         foreach($models as $key => $val){
-            $models[$key]->kategori_penduduk = $this->getKategoriByPendudukVektor($val->id);
+            $models[$key]->kategori_siswa = $this->getKategoriBySiswaVektor($val->id);
             $vektor_total = 1;
-            foreach($models[$key]->kategori_penduduk as $k => $v){
+            foreach($models[$key]->kategori_siswa as $k => $v){
                 $vektor_total *= $v->vektor_hitung;
                 $models[$key]->vektor_total = $vektor_total;
             }
@@ -120,12 +120,12 @@ class M_penilaian extends CI_Model
         return $models;
     }
 
-    function getKategoriByPendudukVektor($penduduk_id){
+    function getKategoriBySiswaVektor($siswa_id){
         $this->db->select('a.*, b.kode, b.jenis, b.kategori, b.bobot, c.kriteria, c.nilai')
         ->from('tb_penilaian a')
         ->join('tb_kategori b', 'a.kategori_id = b.id')
         ->join('tb_kriteria c', 'a.kriteria_id = c.id')
-        ->where(['a.penduduk_id' => $penduduk_id, 'a.is_deleted' => 0])
+        ->where(['a.siswa_id' => $siswa_id, 'a.is_deleted' => 0])
         ;
         
         $models = $this->db->get()->result();
@@ -147,7 +147,7 @@ class M_penilaian extends CI_Model
     function getNilaiVektorV(){
         $this->db->select('a.*, b.id, b.nama, b.nik')
         ->from('tb_penilaian a')
-        ->join('tb_penduduk b', 'a.penduduk_id = b.id')
+        ->join('tb_siswa b', 'a.siswa_id = b.id')
         ->where(['a.is_deleted' => 0])
         ;
         
@@ -163,9 +163,9 @@ class M_penilaian extends CI_Model
         
         $vektor_total_hasil = 0;
         foreach($models as $key => $val){
-            $models[$key]->kategori_penduduk = $this->getKategoriByPendudukVektor($val->id);
+            $models[$key]->kategori_siswa = $this->getKategoriBySiswaVektor($val->id);
             $vektor_total = 1;
-            foreach($models[$key]->kategori_penduduk as $k => $v){
+            foreach($models[$key]->kategori_siswa as $k => $v){
                 $vektor_total *= $v->vektor_hitung;
                 $models[$key]->vektor_total = $vektor_total;
             }

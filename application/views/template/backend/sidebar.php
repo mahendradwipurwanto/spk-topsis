@@ -7,7 +7,7 @@
   			aria-hidden="true" id="iconSidenav"></i>
   		<a class="navbar-brand m-0" href="<?= site_url('admin');?>" target="_blank">
   			<img src="<?= base_url();?>assets/images/icon.png" class="navbar-brand-img h-100" alt="main_logo">
-  			<span class="ms-1 font-weight-bold">SPK BANSOS</span>
+  			<span class="ms-1 font-weight-bold"><?= $web_title;?></span>
   		</a>
   	</div>
   	<hr class="horizontal dark mt-0">
@@ -26,14 +26,14 @@
   			<li class="nav-item mt-3">
   				<h6 class="ps-4 ms-2 text-uppercase text-xs font-weight-bolder opacity-6">Master</h6>
   			</li>
-  			<li class="nav-item" id="sidebar-penduduk">
-  				<a class="nav-link <?= $this->uri->segment(1) == 'master' && $this->uri->segment(2) == 'penduduk' ? 'active' : '';?>"
-  					href="<?= site_url('master/penduduk');?>">
+  			<li class="nav-item" id="sidebar-siswa">
+  				<a class="nav-link <?= $this->uri->segment(1) == 'master' && $this->uri->segment(2) == 'siswa' ? 'active' : '';?>"
+  					href="<?= site_url('master/siswa');?>">
   					<div
   						class="icon icon-shape icon-sm border-radius-md text-center me-2 d-flex align-items-center justify-content-center">
                         <i class="fas fa-users text-primary text-sm opacity-10"></i>
   					</div>
-  					<span class="nav-link-text ms-1">Data Penduduk</span>
+  					<span class="nav-link-text ms-1">Data Siswa</span>
   				</a>
   			</li>
   			<li class="nav-item" id="sidebar-kategori">
@@ -46,7 +46,7 @@
   					<span class="nav-link-text ms-1">Data Kriteria</span>
   				</a>
   			</li>
-  			<li class="nav-item" id="sidebar-kriteria">
+  			<li class="nav-item d-none" id="sidebar-kriteria">
   				<a class="nav-link <?= $this->uri->segment(1) == 'master' && $this->uri->segment(2) == 'kriteria' ? 'active' : '';?>"
   					href="<?= site_url('master/kriteria');?>">
   					<div

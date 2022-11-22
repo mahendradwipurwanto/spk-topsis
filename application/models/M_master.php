@@ -9,10 +9,10 @@ class M_master extends CI_Model
         parent::__construct();
     }
 
-    public function getPenduduk($params = [])
+    public function getSiswa($params = [])
     {
         $this->db->select('*')
-        ->from('tb_penduduk')
+        ->from('tb_siswa')
         ->where(['is_deleted' => 0])
         ->order_by('created_at DESC')
         ;
@@ -24,41 +24,37 @@ class M_master extends CI_Model
         return $this->db->get()->result();
     }
 
-    function tambahPenduduk(){
+    function tambahSiswa(){
 
         $nama = $this->input->post('nama');
-        $nik = $this->input->post('nik');
-        $kk = $this->input->post('kk');
+        $nip = $this->input->post('nip');
         $jenkel = $this->input->post('jenkel');
         $alamat = $this->input->post('alamat');
 
         $data = [
             'nama' => $nama,
-            'nik' => $nik,
-            'kk' => $kk,
+            'nip' => $nip,
             'jenkel' => $jenkel,
             'alamat' => $alamat,
             'created_at' => time(),
             'created_by' => $this->session->userdata('user_id')
         ];
 
-        $this->db->insert('tb_penduduk', $data);
+        $this->db->insert('tb_siswa', $data);
         return $this->db->affected_rows() == true;
     }
 
-    function editPenduduk(){
+    function editSiswa(){
 
         $id = $this->input->post('id');
         $nama = $this->input->post('nama');
-        $nik = $this->input->post('nik');
-        $kk = $this->input->post('kk');
+        $nip = $this->input->post('nip');
         $jenkel = $this->input->post('jenkel');
         $alamat = $this->input->post('alamat');
 
         $data = [
             'nama' => $nama,
-            'nik' => $nik,
-            'kk' => $kk,
+            'nip' => $nip,
             'jenkel' => $jenkel,
             'alamat' => $alamat,
             'modified_at' => time(),
@@ -66,11 +62,11 @@ class M_master extends CI_Model
         ];
 
         $this->db->where('id', $id);
-        $this->db->update('tb_penduduk', $data);
+        $this->db->update('tb_siswa', $data);
         return $this->db->affected_rows() == true;
     }
 
-    function hapusPenduduk(){
+    function hapusSiswa(){
 
         $id = $this->input->post('id');
 
@@ -81,7 +77,7 @@ class M_master extends CI_Model
         ];
 
         $this->db->where('id', $id);
-        $this->db->update('tb_penduduk', $data);
+        $this->db->update('tb_siswa', $data);
         return $this->db->affected_rows() == true;
     }
 
@@ -90,7 +86,7 @@ class M_master extends CI_Model
         $this->db->select('*')
         ->from('tb_kategori')
         ->where(['is_deleted' => 0])
-        ->order_by('created_at DESC')
+        ->order_by('kode ASC')
         ;
 
         if (!empty($params) && isset($params['limit'])) {
@@ -104,14 +100,12 @@ class M_master extends CI_Model
 
         $kode = $this->generate_code($this->input->post('kategori'), 'tb_kategori', 'C');
         $kategori = $this->input->post('kategori');
-        $bobot = $this->input->post('bobot');
         $jenis = $this->input->post('jenis');
         $keterangan = $this->input->post('keterangan');
 
         $data = [
             'kode' => $kode,
             'kategori' => $kategori,
-            'bobot' => $bobot,
             'jenis' => $jenis,
             'keterangan' => $keterangan,
             'created_at' => time(),
@@ -126,13 +120,11 @@ class M_master extends CI_Model
 
         $id = $this->input->post('id');
         $kategori = $this->input->post('kategori');
-        $bobot = $this->input->post('bobot');
         $jenis = $this->input->post('jenis');
         $keterangan = $this->input->post('keterangan');
 
         $data = [
             'kategori' => $kategori,
-            'bobot' => $bobot,
             'jenis' => $jenis,
             'keterangan' => $keterangan,
             'modified_at' => time(),
@@ -171,11 +163,6 @@ class M_master extends CI_Model
         }
 
         $models = $this->db->get()->result();
-
-        foreach($models as $key => $val){
-            $val->kriteria = !empty($this->getKriteriaByKategori($val->id)) ? $this->getKriteriaByKategori($val->id) : null;
-        }
-        // ej($models);
         return $models;
     }
 
@@ -193,21 +180,6 @@ class M_master extends CI_Model
 
         return $this->db->get()->result();
     }
-
-    // public function getKriteria($params = [])
-    // {
-    //     $this->db->select('a.*, b.kategori')
-    //     ->from('tb_kriteria a')
-    //     ->join('tb_kategori b', 'a.kategori_id = b.id')
-    //     ->where(['a.is_deleted' => 0])
-    //     ->order_by('a.created_at DESC');
-
-    //     if (!empty($params) && isset($params['limit'])) {
-    //         $this->db->limit($params['limit']);
-    //     }
-
-    //     return $this->db->get()->result();
-    // }
 
     function tambahKriteria(){
 
@@ -271,24 +243,15 @@ class M_master extends CI_Model
     function generate_code($string = '', $table = '', $code = ''){
         
         $number = $this->db->get($table)->num_rows();
-        // $string = preg_replace('/[^a-z]/i', '', $string);
-
-        // $vocal = ["a", "e", "i", "o", "u", "A", "E", "I", "O", "U", " "];
-        // $scrap = str_replace($vocal, "", $string);
-        // $begin = substr($scrap, 0, 4);
-        // $uniqid = strtoupper($begin);
-
-        // CREATE KODE USER
-        // $code = strtolower(rand_string(3).''.$uniqid . "".($number+1));
         $code = strtoupper($code . "".($number+1));
 
         return $code;
     }
 
     function getPenilaian(){
-        $this->db->select('a.*, b.id, b.nama, b.nik')
+        $this->db->select('a.*, b.id, b.nama, b.nip')
         ->from('tb_penilaian a')
-        ->join('tb_penduduk b', 'a.penduduk_id = b.id')
+        ->join('tb_siswa b', 'a.siswa_id = b.id')
         ->where(['a.is_deleted' => 0])
         ;
         
@@ -297,23 +260,21 @@ class M_master extends CI_Model
         $models = array_reverse(array_values(array_column(
             array_reverse($models),
             null,
-            'penduduk_id'
+            'siswa_id'
         )));
 
         foreach($models as $key => $val){
-            $models[$key]->kategori_penduduk = $this->getKategoriByPenduduk($val->id);
+            $models[$key]->kategori_siswa = $this->getKategoriBySiswa($val->id);
         }
         // ej($models);
-        // ej($models[0]->kategori[8]->kategori);
         return $models;
     }
 
-    function getKategoriByPenduduk($penduduk_id){
-        $this->db->select('a.*, b.kategori, b.bobot, c.kriteria, c.nilai')
+    function getKategoriBySiswa($siswa_id){
+        $this->db->select('a.*, b.kategori, b.jenis')
         ->from('tb_penilaian a')
         ->join('tb_kategori b', 'a.kategori_id = b.id')
-        ->join('tb_kriteria c', 'a.kriteria_id = c.id')
-        ->where(['a.penduduk_id' => $penduduk_id, 'a.is_deleted' => 0])
+        ->where(['a.siswa_id' => $siswa_id, 'a.is_deleted' => 0])
         ;
         
         $models = $this->db->get()->result();
@@ -333,22 +294,21 @@ class M_master extends CI_Model
         ;
         
         $models = $this->db->get()->row();
-        // ej($models);
         return $models;
     }
 
     function tambahPenilaian(){
 
-        $penduduk_id = $this->input->post('penduduk_id');
+        $siswa_id = $this->input->post('siswa_id');
         $kategori_id = $this->input->post('kategori_id');
-        $kriteria_id = $this->input->post('kriteria_id');
+        $nilai = $this->input->post('nilai');
         
         $this->db->trans_begin();
         foreach($kategori_id as $key => $val){
             $data = [
-                'penduduk_id' => $penduduk_id,
+                'siswa_id' => $siswa_id,
                 'kategori_id' => $kategori_id[$key],
-                'kriteria_id' => $kriteria_id[$key],
+                'nilai' => $nilai[$key],
                 'created_at' => time(),
                 'created_by' => $this->session->userdata('user_id')
             ];
@@ -373,19 +333,19 @@ class M_master extends CI_Model
     }
 
     function editPenilaian(){
-        $penduduk_id = $this->input->post('id');
+        $siswa_id = $this->input->post('id');
         $kategori_id = $this->input->post('kategori_id');
-        $kriteria_id = $this->input->post('kriteria_id');
+        $nilai = $this->input->post('nilai');
         $this->db->trans_begin();
         foreach($kategori_id as $key => $val){
             $data = [
-                'penduduk_id' => $penduduk_id,
+                'siswa_id' => $siswa_id,
                 'kategori_id' => $kategori_id[$key],
-                'kriteria_id' => $kriteria_id[$key],
+                'nilai' => $nilai[$key],
                 'modified_at' => time(),
                 'modified_by' => $this->session->userdata('user_id')
             ];
-            $this->db->where(['penduduk_id' => $penduduk_id, 'kategori_id' => $kategori_id[$key]]);
+            $this->db->where(['siswa_id' => $siswa_id, 'kategori_id' => $kategori_id[$key]]);
             $this->db->update('tb_penilaian', $data);
         }
         $this->db->trans_complete();
@@ -416,7 +376,7 @@ class M_master extends CI_Model
             'modified_by' => $this->session->userdata('user_id')
         ];
 
-        $this->db->where('penduduk_id', $id);
+        $this->db->where('siswa_id', $id);
         $this->db->update('tb_penilaian', $data);
         return $this->db->affected_rows() == true;
     }

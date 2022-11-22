@@ -16,9 +16,6 @@
 								Kriteria</th>
 							<th width="10%"
 								class="text-uppercase text-secondary text-left px-2 text-xs font-weight-bolder opacity-7">
-								Bobot</th>
-							<th width="10%"
-								class="text-uppercase text-secondary text-left px-2 text-xs font-weight-bolder opacity-7">
 								Jenis</th>
 							<th width="50%"
 								class="text-uppercase text-secondary text-left px-2 text-xs font-weight-bolder opacity-7">
@@ -38,12 +35,9 @@
 									</div>
 								</div>
 							</td>
-							<td class="align-middle">
-								<span class="text-secondary"><?= $val->bobot;?> poin</span>
-							</td>
 							<td class="align-middle text-sm">
 								<span class="text-secondary font-weight-bold"><span
-										class="badge bg-<?= $val->jenis == 1 ? 'success' : 'danger';?>"><?= $val->jenis == 1 ? 'Pendapatan' : 'Pengeluaran';?></span></span>
+										class="badge bg-<?= $val->jenis == 1 ? 'success' : 'danger';?>"><?= $val->jenis == 1 ? 'Benefit' : 'Cost';?></span></span>
 							</td>
 							<td class="align-middle">
 								<span class="text-secondary"><?= $val->keterangan;?></span>
@@ -79,16 +73,6 @@
 												<label for="formNamaKategori">Nama kriteria</label>
 												<input type="text" class="form-control form-control-sm" name="kategori"
 													value="<?= $val->kategori;?>" placeholder="Nama kriteria" required>
-											</div>
-											<div class="mb-3">
-												<label for="formBobotKategori">Bobot</label>
-												<div class="input-group">
-													<input type="number" class="form-control form-control-sm"
-														id="formBobotKategori" name="bobot" placeholder="Bobot kategori"
-														value="<?= $val->bobot;?>" aria-describedby="basic-bobot"
-														min="1" max="5" required>
-													<span class="input-group-text" id="basic-bobot">1 s.d. 5</span>
-												</div>
 											</div>
 											<div class="mb-3">
 												<label>Jenis kriteria</label>
@@ -180,25 +164,17 @@
 							placeholder="Nama kriteria" required>
 					</div>
 					<div class="mb-3">
-						<label for="formBobotKategori">Bobot</label>
-						<div class="input-group">
-							<input type="number" class="form-control form-control-sm" id="formBobotKategori" name="bobot"
-								placeholder="Bobot kategori" aria-describedby="basic-bobot" min="1" max="5" required>
-							<span class="input-group-text" id="basic-bobot">1 s.d. 5</span>
-						</div>
-					</div>
-					<div class="mb-3">
 						<label>Jenis kriteria</label>
 						<div class="d-flex align-items-center">
 							<div class="form-check">
 								<input class="form-check-input" type="radio" name="jenis" id="radioPendapatan" value="1"
 									checked>
-								<label class="custom-control-label" for="radioPendapatan">Pendapatan</label>
+								<label class="custom-control-label" for="radioPendapatan">Benefit</label>
 							</div>
 							<div class="form-check ms-2">
 								<input class="form-check-input" type="radio" name="jenis" id="radioPengeluaran"
 									value="2">
-								<label class="custom-control-label" for="radioPengeluaran">Pengeluaran</label>
+								<label class="custom-control-label" for="radioPengeluaran">Cost</label>
 							</div>
 						</div>
 					</div>

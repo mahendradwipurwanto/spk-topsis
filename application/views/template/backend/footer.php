@@ -7,7 +7,7 @@
 					© <script>
 						document.write(new Date().getFullYear())
 
-					</script>, SPK BANSOS
+					</script>, <?= $web_title;?>
 				</div>
 			</div>
 		</div>
@@ -28,13 +28,13 @@
 		introJs().setOptions({
 			disableInteraction: true,
 			steps: [{
-				intro: "Selamat Datang di web aplikasi SPK BANSOS"
+				intro: "Selamat Datang di web aplikasi <?= $web_title;?>"
 			}, {
 				element: document.querySelector('#sidebar-dashboard'),
 				intro: "Anda dapat melihat ringkasan mengenai web app pada laman ini"
 			}, {
-				element: document.querySelector('#sidebar-penduduk'),
-				intro: "Anda dapat mengelola data penduduk pada laman ini"
+				element: document.querySelector('#sidebar-siswa'),
+				intro: "Anda dapat mengelola data siswa pada laman ini"
 			}, {
 				element: document.querySelector('#sidebar-kategori'),
 				intro: "Anda dapat mengelola master data kategori penilaian pada laman ini"
@@ -43,7 +43,7 @@
 				intro: "Anda dapat mengelola master data kriteria penilaian pada laman ini"
 			}, {
 				element: document.querySelector('#sidebar-penilaian'),
-				intro: "Anda dapat mengelola data penilaian penduduk pada laman ini"
+				intro: "Anda dapat mengelola data penilaian siswa pada laman ini"
 			}, {
 				element: document.querySelector('#sidebar-perhitungan'),
 				intro: "Anda dapat melihat data detail perhitungan pada laman ini"

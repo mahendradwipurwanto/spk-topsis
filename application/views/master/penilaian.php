@@ -1,5 +1,5 @@
 <div class="row">
-	<div class="col-xl-8 mb-4">
+	<div class="col-xl-12 mb-4">
 		<div class="card">
 			<div class="card-header pb-0">
 				<h4 class="card-title-header">Data Penilaian
@@ -14,10 +14,19 @@
 							<th width="10%"
 								class="text-uppercase text-left px-2 text-secondary text-xs font-weight-bolder opacity-7">
 								No</th>
+							<th width="10%"
+								class="text-uppercase text-left px-2 text-secondary text-xs font-weight-bolder opacity-7">
+								</th>
 							<th width="80%"
 								class="text-uppercase text-left px-2 text-secondary text-xs font-weight-bolder opacity-7">
-								Nama Penduduk</th>
-							<th width="10%" class="text-secondary opacity-7"></th>
+								Nama Siswa</th>
+							<?php if(!empty($kategori)):?>
+							<?php foreach($kategori as $key => $val):?>
+							<th
+								class="text-uppercase text-left px-2 text-secondary text-xs font-weight-bolder opacity-7">
+								<?= $val->kategori;?></th>
+							<?php endforeach;?>
+							<?php endif;?>
 						</tr>
 					</thead>
 					<tbody>
@@ -26,14 +35,6 @@
 						<tr>
 							<td class="align-middle">
 								<span class="text-secondary"><?= $no;?></span>
-							</td>
-							<td>
-								<div class="d-flex px-2 py-1">
-									<div class="d-flex flex-column justify-content-center">
-										<h6 class="mb-0 text-xs"><?= $val->nama;?></h6>
-										<p class="text-xs text-secondary mb-0">nik: <?= $val->nik;?></p>
-									</div>
-								</div>
 							</td>
 							<td class="align-middle">
 								<button class="btn btn-secondary btn-xs mb-0" data-bs-toggle="modal"
@@ -45,15 +46,30 @@
 									Hapus
 								</button>
 							</td>
+							<td>
+								<div class="d-flex px-2 py-1">
+									<div class="d-flex flex-column justify-content-center">
+										<h6 class="mb-0 text-xs"><?= $val->nama;?></h6>
+										<p class="text-xs text-secondary mb-0">NIS: <?= $val->nip;?></p>
+									</div>
+								</div>
+							</td>
+							<?php if(!empty($kategori)):?>
+							<?php foreach($kategori as $k => $v):?>
+							<td class="align-middle text-center">
+								<span class="text-secondary"><?= $val->kategori_siswa[$v->id]->nilai;?></span>
+							</td>
+							<?php endforeach;?>
+							<?php endif;?>
 						</tr>
 
 						<!-- Modal -->
 						<div class="modal fade" id="edit-<?= $val->id;?>" tabindex="-1" role="dialog"
-							aria-labelledby="exampleModalLabel" aria-hidden="true">
+							aria-labelledby="exampleModalLabel" data-bs-backdrop="static" data-bs-keyboard="false" aria-hidden="true">
 							<div class="modal-dialog modal-dialog-centered" role="document">
 								<div class="modal-content">
 									<div class="modal-header">
-										<h5 class="modal-title" id="exampleModalLabel">Edit penduduk</h5>
+										<h5 class="modal-title" id="exampleModalLabel">Edit siswa</h5>
 										<button type="button" class="btn-close" data-bs-dismiss="modal"
 											aria-label="Close">
 											<span aria-hidden="true">&times;</span>
@@ -63,37 +79,23 @@
 										<form action="<?= site_url('master/editPenilaian');?>" method="POST">
 											<input type="hidden" name="id" value="<?= $val->id;?>">
 											<div class="mb-3">
-												<label for="formNamaPenduduk">Penduduk</label>
+												<label for="formNamaSiswa">Siswa</label>
 												<input type="text" class="form-control form-control-sm" name="nama"
-													value="<?= $val->nama;?>" placeholder="Nama Lengkap penduduk"
-													readonly>
+													value="<?= $val->nama;?>" placeholder="Nama Lengkap siswa" readonly>
 											</div>
-											<?php if(!empty($val->kategori_penduduk)):?>
-											<?php foreach($val->kategori_penduduk as $k => $v):?>
+											<?php if(!empty($val->kategori_siswa)):?>
+											<?php foreach($val->kategori_siswa as $k => $v):?>
 											<div class="mb-3">
 												<label for="formKategori">Kriteria <?= $v->kategori;?></label>
-												<input type="hidden" name="kategori_id[]" value="<?= $v->kategori_id;?>">
-												<select type="text"
-													class="form-control form-control-sm choices w-100 select2"
-													name="kriteria_id[]">
-													<optgroup label="current">
-														<option value="<?= $v->kriteria_id;?>"><?= $v->kriteria;?>
-														</option>
-													</optgroup>
-													<?php if(!empty($kategori)):?>
-													<?php foreach($kategori as $kk => $vv):?>
-													<?php if($vv->id == $v->kategori_id):?>
-													<?php if(!empty($vv->kriteria)):?>
-													<optgroup label="changes">
-														<?php foreach($vv->kriteria as $kkk => $vvv):?>
-														<option value="<?= $vvv->id;?>"><?= $vvv->kriteria;?></option>
-														<?php endforeach;?>
-													</optgroup>
-													<?php endif;?>
-													<?php endif;?>
-													<?php endforeach;?>
-													<?php endif;?>
-												</select>
+												<input type="hidden" name="kategori_id[]"
+													value="<?= $v->kategori_id;?>">
+												<div class="input-group">
+													<input type="number" class="form-control form-control-sm"
+														id="formBobotKategori" name="nilai[]"
+														value="<?= $v->nilai;?>"
+														aria-describedby="basic-bobot" min="1" max="5" required>
+													<span class="input-group-text" id="basic-bobot">1 s.d. 5</span>
+												</div>
 											</div>
 											<?php endforeach;?>
 											<?php endif;?>
@@ -140,11 +142,11 @@
 </div>
 
 <!-- Modal -->
-<div class="modal fade" id="tambah" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+<div class="modal fade" id="tambah" tabindex="-1" role="dialog" data-bs-backdrop="static" data-bs-keyboard="false" aria-labelledby="exampleModalLabel" aria-hidden="true">
 	<div class="modal-dialog modal-dialog-centered" role="document">
 		<div class="modal-content">
 			<div class="modal-header">
-				<h5 class="modal-title" id="exampleModalLabel">Tambah penduduk</h5>
+				<h5 class="modal-title" id="exampleModalLabel">Tambah siswa</h5>
 				<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close">
 					<span aria-hidden="true">&times;</span>
 				</button>
@@ -152,11 +154,10 @@
 			<div class="modal-body">
 				<form action="<?= site_url('master/tambahPenilaian');?>" method="POST">
 					<div class="mb-3">
-						<label for="formNamaPenduduk">Penduduk</label>
-						<select type="text" class="form-control form-control-sm choices w-100 select2"
-							name="penduduk_id">
-							<?php if(!empty($penduduk)):?>
-							<?php foreach($penduduk as $kk => $vv):?>
+						<label for="formNamaSiswa">Siswa</label>
+						<select type="text" class="form-control form-control-sm choices w-100 select2" name="siswa_id">
+							<?php if(!empty($siswa)):?>
+							<?php foreach($siswa as $kk => $vv):?>
 							<option value="<?= $vv->id;?>"><?= $vv->nama;?></option>
 							<?php endforeach;?>
 							<?php endif;?>
@@ -165,16 +166,14 @@
 					<?php if(!empty($kategori)):?>
 					<?php foreach($kategori as $key => $val):?>
 					<div class="mb-3">
-						<label for="formKategori">Kategori <?= $val->kategori;?></label>
+						<label for="formKategori">Nilai Kategori <?= $val->kategori;?></label>
 						<input type="hidden" name="kategori_id[]" value="<?= $val->id;?>">
-						<select type="text" class="form-control form-control-sm choices w-100 select2"
-							name="kriteria_id[]">
-							<?php if(!empty($val->kriteria)):?>
-							<?php foreach($val->kriteria as $kk => $vv):?>
-							<option value="<?= $vv->id;?>"><?= $vv->kriteria;?></option>
-							<?php endforeach;?>
-							<?php endif;?>
-						</select>
+						<div class="input-group">
+							<input type="number" class="form-control form-control-sm" id="formBobotKategori"
+								name="nilai[]" placeholder="Nilai kategori <?= $val->kategori;?>"
+								aria-describedby="basic-bobot" min="1" max="5" required>
+							<span class="input-group-text" id="basic-bobot">1 s.d. 5</span>
+						</div>
 					</div>
 					<?php endforeach;?>
 					<?php endif;?>

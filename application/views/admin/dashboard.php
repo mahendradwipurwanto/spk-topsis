@@ -5,9 +5,9 @@
       				<div class="row">
       					<div class="col-8">
       						<div class="numbers">
-      							<p class="text-sm mb-0 text-uppercase font-weight-bold">Total Penduduk</p>
+      							<p class="text-sm mb-0 text-uppercase font-weight-bold">Total Siswa</p>
       							<h5 class="font-weight-bolder">
-      								<?= number_format($statistik['penduduk']);?>
+      								<?= number_format($statistik['siswa']);?>
       							</h5>
       						</div>
       					</div>
@@ -42,7 +42,7 @@
       			</div>
       		</div>
       	</div>
-      	<div class="col-xl-3 col-sm-6 mb-xl-0 mb-4">
+      	<div class="col-xl-3 col-sm-6 mb-xl-0 mb-4 d-none">
       		<div class="card">
       			<div class="card-body p-3">
       				<div class="row">
@@ -84,8 +84,7 @@
       							<div class="d-flex flex-column">
       								<h6 class="mb-1 text-dark text-sm"><?= $val->kategori;?></h6>
       								<span class="text-xs"><span
-      										class="font-weight-bold"><?= $val->kode;?></span>, bobot
-      									<?= number_format($val->bobot);?> poin</span>
+      										class="font-weight-bold"><?= $val->kode;?></span></span>
       							</div>
       						</div>
       						<div class="d-flex align-items-center">
@@ -110,7 +109,7 @@
       			</div>
       		</div>
       	</div>
-      	<div class="col-lg-7 mb-lg-0 mb-4">
+      	<div class="col-lg-7 mb-lg-0 mb-4 d-none">
       		<div class="card ">
       			<div class="card-header pb-0 p-3">
       				<div class="d-flex justify-content-between">

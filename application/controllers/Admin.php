@@ -26,7 +26,7 @@ class Admin extends CI_Controller
     {
         $data['statistik'] = $this->M_admin->getStatistik();
         $data['kategori'] = $this->M_kategori->getKategori(['limit' => 5]);
-        $data['kriteria'] = $this->M_kriteria->getKriteria(['limit' => 5]);
+        // $data['kriteria'] = $this->M_kriteria->getKriteria(['limit' => 5]);
         $this->templateback->view('admin/dashboard', $data);
     }
 

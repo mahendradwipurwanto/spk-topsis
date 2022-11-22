@@ -23,26 +23,15 @@ class Penilaian extends CI_Controller
 
     public function perhitungan()
     {
+        $data['penilaian'] = $this->M_master->getPenilaian();
         $data['kategori'] = $this->M_master->getKategoriALl();
-        $data['matrix_keputusan'] = $this->M_penilaian->getMatrixKeptusuan();
-        $data['bobot_kriteria'] = $this->M_penilaian->getBobotKriteria();
-        $data['normalisasi_bobot_kriteria'] = $this->M_penilaian->getNormalisasiBobotKriteria();
-        $data['nilai_vektor_s'] = $this->M_penilaian->getNilaiVektorS();
-        $data['nilai_vektor_v'] = $this->M_penilaian->getNilaiVektorV();
-        // ej($data);
+
         $this->templateback->view('penilaian/perhitungan', $data);
     }
 
     public function hasil_akhir()
     {
-        $data['kategori'] = $this->M_master->getKategoriALl();
-        $data['matrix_keputusan'] = $this->M_penilaian->getMatrixKeptusuan();
-        $data['bobot_kriteria'] = $this->M_penilaian->getBobotKriteria();
-        $data['normalisasi_bobot_kriteria'] = $this->M_penilaian->getNormalisasiBobotKriteria();
-        $data['nilai_vektor_s'] = $this->M_penilaian->getNilaiVektorS();
-        $data['nilai_vektor_v'] = $this->M_penilaian->getNilaiVektorV();
-        // ej($data);
-        $this->templateback->view('penilaian/hasil', $data);
+        $this->templateback->view('penilaian/hasil');
     }
 
     function cetak_hasil(){

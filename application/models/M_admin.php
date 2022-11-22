@@ -10,14 +10,14 @@ class M_admin extends CI_Model
 
     function getStatistik(){
 
-        $penduduk = $this->db->get_where('tb_penduduk', ['is_deleted' => 0])->num_rows();
+        $siswa = $this->db->get_where('tb_siswa', ['is_deleted' => 0])->num_rows();
         $kategori = $this->db->get_where('tb_kategori', ['is_deleted' => 0])->num_rows();
-        $kriteria = $this->db->get_where('tb_kriteria', ['is_deleted' => 0])->num_rows();
+        // $kriteria = $this->db->get_where('tb_kriteria', ['is_deleted' => 0])->num_rows();
 
         return [
-            'penduduk' => $penduduk,
+            'siswa' => $siswa,
             'kategori' => $kategori,
-            'kriteria' => $kriteria
+            'kriteria' => 0
         ];
     }
 

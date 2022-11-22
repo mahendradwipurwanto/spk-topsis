@@ -22,38 +22,38 @@ class Master extends CI_Controller
         $this->load->model(['M_master']);
     }
 
-    public function penduduk()
+    public function siswa()
     {
-        $data['penduduk'] = $this->M_master->getPenduduk();
-        $this->templateback->view('master/penduduk', $data);
+        $data['siswa'] = $this->M_master->getSiswa();
+        $this->templateback->view('master/siswa', $data);
     }
 
-    function tambahPenduduk(){
-        if($this->M_master->tambahPenduduk() == true){
-            $this->session->set_flashdata('notif_success', "Berhasil menambahkan data penduduk!");
-            redirect(site_url('master/penduduk'));
+    function tambahSiswa(){
+        if($this->M_master->tambahSiswa() == true){
+            $this->session->set_flashdata('notif_success', "Berhasil menambahkan data siswa!");
+            redirect(site_url('master/siswa'));
         }else{
-            $this->session->set_flashdata('notif_warning', "Terjadi kesalahaan saat menambahkan data penduduk, coba lagi nanti!");
+            $this->session->set_flashdata('notif_warning', "Terjadi kesalahaan saat menambahkan data siswa, coba lagi nanti!");
 			redirect($this->agent->referrer());
         }
     }
 
-    function editPenduduk(){
-        if($this->M_master->editPenduduk() == true){
-            $this->session->set_flashdata('notif_success', "Berhasil mengubah data penduduk!");
-            redirect(site_url('master/penduduk'));
+    function editSiswa(){
+        if($this->M_master->editSiswa() == true){
+            $this->session->set_flashdata('notif_success', "Berhasil mengubah data siswa!");
+            redirect(site_url('master/siswa'));
         }else{
-            $this->session->set_flashdata('notif_warning', "Terjadi kesalahaan saat mengubah data penduduk, coba lagi nanti!");
+            $this->session->set_flashdata('notif_warning', "Terjadi kesalahaan saat mengubah data siswa, coba lagi nanti!");
 			redirect($this->agent->referrer());
         }
     }
 
-    function hapusPenduduk(){
-        if($this->M_master->hapusPenduduk() == true){
-            $this->session->set_flashdata('notif_success', "Berhasil menghapus data penduduk!");
-            redirect(site_url('master/penduduk'));
+    function hapusSiswa(){
+        if($this->M_master->hapusSiswa() == true){
+            $this->session->set_flashdata('notif_success', "Berhasil menghapus data siswa!");
+            redirect(site_url('master/siswa'));
         }else{
-            $this->session->set_flashdata('notif_warning', "Terjadi kesalahaan saat menghapus data penduduk, coba lagi nanti!");
+            $this->session->set_flashdata('notif_warning', "Terjadi kesalahaan saat menghapus data siswa, coba lagi nanti!");
 			redirect($this->agent->referrer());
         }
     }
@@ -134,7 +134,7 @@ class Master extends CI_Controller
     public function penilaian()
     {
         $data['penilaian'] = $this->M_master->getPenilaian();
-        $data['penduduk'] = $this->M_master->getPenduduk();
+        $data['siswa'] = $this->M_master->getSiswa();
         $data['kategori'] = $this->M_master->getKategoriALl();
         // ej($data);
         $this->templateback->view('master/penilaian', $data);
