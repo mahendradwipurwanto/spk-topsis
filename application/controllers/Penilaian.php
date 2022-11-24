@@ -25,13 +25,20 @@ class Penilaian extends CI_Controller
     {
         $data['penilaian'] = $this->M_master->getPenilaian();
         $data['kategori'] = $this->M_master->getKategoriALl();
-
+        $data['normalisasi'] = $this->M_penilaian->getNormalisasiALl();
+        $data['matrix_r'] = $this->M_penilaian->getMatrixR();
+        $data['bobot_matrix'] = $this->M_penilaian->getBobotMatrix();
+        $data['d_plus'] = $this->M_penilaian->getDPlus();
+        $data['d_min'] = $this->M_penilaian->getDMin();
+        $data['np'] = $this->M_penilaian->getNP();
+        // ej($data['np']);
         $this->templateback->view('penilaian/perhitungan', $data);
     }
 
     public function hasil_akhir()
     {
-        $this->templateback->view('penilaian/hasil');
+        $data['np'] = $this->M_penilaian->getNP();
+        $this->templateback->view('penilaian/hasil', $data);
     }
 
     function cetak_hasil(){
@@ -40,7 +47,7 @@ class Penilaian extends CI_Controller
         $data['web_desc'] = $this->M_penilaian->getSettingsValue('web_desc');
         $data['web_icon'] = $this->M_penilaian->getSettingsValue('web_icon');
         $data['web_logo'] = $this->M_penilaian->getSettingsValue('web_logo');
-        $data['nilai_vektor_v'] = $this->M_penilaian->getNilaiVektorV();
+        $data['np'] = $this->M_penilaian->getNP();
 
         $this->load->view('template/backend/header', $data);
         $this->load->view('penilaian/print', $data);

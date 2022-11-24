@@ -2,6 +2,7 @@
 	@media print {
 		body {
 			zoom: 80%;
+			background-color: white;
 		}
 	}
 
@@ -9,7 +10,7 @@
 
 <div class="row p-3">
 	<div class="col-xl-12 mb-4">
-		<div class="card" style="border-radius: 0;">
+		<div style="border-radius: 0;">
 			<div class="card-header pb-0">
 				<h5 class="card-title-header">Nilai Akhir Perhitungan
 				</h5>
@@ -18,35 +19,27 @@
 				<table class="table table-bordered table-hover align-items-center w-100 mb-0">
 					<thead>
 						<tr>
-							<th width="10%"
-								class="text-uppercase text-secondary text-center px-2 text-xs font-weight-bolder opacity-7">
-								Peringkat</th>
-							<th width="10%"
-								class="text-uppercase text-secondary text-left px-2 text-xs font-weight-bolder opacity-7">
-								Siswa</th>
-							<th width="40%"
-								class="text-uppercase text-secondary text-center px-2 text-xs font-weight-bolder opacity-7">
-								Perhitungan</th>
-							<th width="40%"
-								class="text-uppercase text-secondary text-center px-2 text-xs font-weight-bolder opacity-7">
-								Nilai (V)</th>
+							<th class="text-uppercase text-center px-2 text-secondary text-xs font-weight-bolder">
+								Ranking</th>
+							<th class="text-uppercase text-left px-2 text-secondary text-xs font-weight-bolder">
+								Nama Siswa</th>
+							<th class="text-uppercase text-center px-2 text-secondary font-weight-bolder">
+								NP</th>
 						</tr>
 					</thead>
 					<tbody>
-						<?php if(!empty($nilai_vektor_v)):?>
-						<?php $no = 1;foreach($nilai_vektor_v as $key => $val):?>
+						<?php if(!empty($np)):?>
+						<?php $no = 1;foreach($np as $key => $val):?>
 						<tr>
 							<td class="align-middle text-center">
 								<span class="text-secondary"><?= $no++;?></span>
 							</td>
 							<td class="align-middle">
-								<span class="text-secondary font-weight-bold"><?= $val->nama;?></span>
+								<span class="text-secondary"><?= $val->nama;?></span>
 							</td>
 							<td class="align-middle text-center">
-								<span class="text-secondary font-weight-bold"><?= $val->vektor_hasil_rumus;?></span>
-							</td>
-							<td class="align-middle text-center">
-								<span class="text-secondary font-weight-bold"><?= $val->vektor_hasil;?></span>
+								<span
+									class="text-uppercase text-center px-2 text-secondary font-weight-bolder"><?= $val->nilai_np;?></span>
 							</td>
 						</tr>
 						<?php endforeach;?>

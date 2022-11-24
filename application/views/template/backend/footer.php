@@ -63,14 +63,14 @@
 	}
 
 	// choices
-	if(document.getElementById("choices-button")){
+	if (document.getElementById("choices-button")) {
 		new Choices(document.getElementById("choices-button"), {});
 	}
 
 	$(document).ready(function () {
 		// datatables
-		$('table.table').each(function () {
-			$('#'+$(this).attr('id')).DataTable({
+		$('table.datatable').each(function () {
+			$('#' + $(this).attr('id')).DataTable({
 				"language": {
 					"emptyTable": '<div class="text-center p-4">' +
 						'<img class="mb-3" src="<?= base_url() ?>assets/svg/illustrations/sorry.svg" alt="Image Description" style="width: 7rem;">' +
@@ -78,7 +78,26 @@
 						'</div>'
 				},
 				"scrollX": true,
-				"responsive": true
+				"responsive": true,
+				"ordering": false,
+				"pageLength": 25
+			});
+		});
+		// datatables
+		$('table.table-calc').each(function () {
+			$('#' + $(this).attr('id')).DataTable({
+				"language": {
+					"emptyTable": '<div class="text-center p-4">' +
+						'<img class="mb-3" src="<?= base_url() ?>assets/svg/illustrations/sorry.svg" alt="Image Description" style="width: 7rem;">' +
+						'<p class="mb-0">Tidak ada data untuk ditampilkan</p>' +
+						'</div>'
+				},
+				"scrollX": true,
+				"responsive": true,
+				"ordering": false,
+				"scrollCollapse": true,
+				"paging": false,
+				"pageLength": 25
 			});
 		});
 

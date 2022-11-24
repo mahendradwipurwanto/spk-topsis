@@ -21,7 +21,7 @@
 			</div>
 
 			<div class="card-body pt-0">
-				<table class="table table-bordered table-hover align-items-center w-100 mb-0" id="multiTable-<?= $val->id;?>">
+				<table class="table table-bordered table-hover align-items-center w-100 mb-0 datatable" id="multiTable-<?= $val->id;?>">
 					<thead>
 						<tr>
 							<th width="5%"

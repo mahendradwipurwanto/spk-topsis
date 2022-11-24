@@ -8,7 +8,7 @@
 				</h4>
 			</div>
 			<div class="card-body pt-0">
-				<table class="table table-bordered table-hover align-items-center w-100 mb-0" id="myTable">
+				<table class="table table-bordered table-hover align-items-center w-100 mb-0 datatable" id="myTable">
 					<thead>
 						<tr>
 							<th width="20%"
@@ -17,6 +17,9 @@
 							<th width="10%"
 								class="text-uppercase text-secondary text-left px-2 text-xs font-weight-bolder opacity-7">
 								Jenis</th>
+							<th width="10%"
+								class="text-uppercase text-secondary text-left px-2 text-xs font-weight-bolder opacity-7">
+								Bobot</th>
 							<th width="50%"
 								class="text-uppercase text-secondary text-left px-2 text-xs font-weight-bolder opacity-7">
 								Keterangan</th>
@@ -38,6 +41,9 @@
 							<td class="align-middle text-sm">
 								<span class="text-secondary font-weight-bold"><span
 										class="badge bg-<?= $val->jenis == 1 ? 'success' : 'danger';?>"><?= $val->jenis == 1 ? 'Benefit' : 'Cost';?></span></span>
+							</td>
+							<td class="align-middle text-center">
+								<span class="text-secondary"><?= $val->bobot;?>%</span>
 							</td>
 							<td class="align-middle">
 								<span class="text-secondary"><?= $val->keterangan;?></span>
@@ -92,6 +98,12 @@
 															for="radioPengeluaran">Pengeluaran</label>
 													</div>
 												</div>
+											</div>
+											<div class="mb-3">
+												<label for="formBobotKategori">Bobot kriteria</label>
+												<input type="number" class="form-control form-control-sm" name="bobot"
+													value="<?= $val->bobot;?>" min="0" max="100"
+													placeholder="Bobot kriteria" required>
 											</div>
 											<div class="mb-3">
 												<label for="formKeteranganKategori">Keterangan <small
@@ -177,6 +189,10 @@
 								<label class="custom-control-label" for="radioPengeluaran">Cost</label>
 							</div>
 						</div>
+					</div>
+					<div class="mb-3">
+						<label for="formBobotKategori">Bobot kriteria</label>
+						<input type="number" class="form-control form-control-sm" name="bobot" min="0" max="100" placeholder="Bobot kriteria" required>
 					</div>
 					<div class="mb-3">
 						<label for="formKeteranganKategori">Keterangan <small

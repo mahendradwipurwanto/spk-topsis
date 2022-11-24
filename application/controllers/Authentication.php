@@ -23,12 +23,12 @@ class Authentication extends CI_Controller
             }
         } else {
             
-            if(strpos($_SERVER['SERVER_NAME'], 'localhost') !== FALSE){
-                $_POST['email'] = 'admin@spkbansos.com';
-                $_POST['password'] = '12341234';
+            // if(strpos($_SERVER['SERVER_NAME'], 'localhost') !== FALSE){
+            //     $_POST['email'] = 'admin@spkbansos.com';
+            //     $_POST['password'] = '12341234';
 
-                $this->proses_login();
-            }
+            //     $this->proses_login();
+            // }
 
             $this->templateauth->view('authentication/login');
         }

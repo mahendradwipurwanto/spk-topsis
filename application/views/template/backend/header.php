@@ -35,6 +35,8 @@
 	<!-- select2 -->
 	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/select2@4.0.13/dist/css/select2.min.css" />
 	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/select2-bootstrap-5-theme@1.3.0/dist/select2-bootstrap-5-theme.min.css" />
+	<!-- datatables -->
+	<link rel="stylesheet" href="https://cdn.datatables.net/fixedcolumns/4.2.1/css/fixedColumns.dataTables.min.css">
     <!-- stylesheet -->
     <link rel="stylesheet" href="<?= base_url();?>assets/css/custom.css?<?= time();?>">
 
@@ -43,6 +45,7 @@
     <!-- data tables -->
 	<script type="text/javascript" src="//cdn.datatables.net/1.11.5/js/jquery.dataTables.min.js"></script>
 	<script type="text/javascript" src="//cdn.datatables.net/1.11.5/js/dataTables.bootstrap5.min.js"></script>
+	<script type="text/javascript" src="//cdn.datatables.net/fixedcolumns/4.2.1/js/dataTables.fixedColumns.min.js"></script>
 	<!-- sweetalert2 -->
 	<script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 	<!-- ckeditor -->

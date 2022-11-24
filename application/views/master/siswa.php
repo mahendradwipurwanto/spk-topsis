@@ -8,7 +8,7 @@
 				</h4>
 			</div>
 			<div class="card-body pt-0">
-				<table class="table table-bordered table-hover align-items-center w-100 mb-0" id="myTable">
+				<table class="table table-bordered table-hover align-items-center w-100 mb-0 datatable" id="myTable">
 					<thead>
 						<tr>
 							<th width="5%" class="text-uppercase text-left px-2 text-secondary text-xs font-weight-bolder opacity-7">No</th>

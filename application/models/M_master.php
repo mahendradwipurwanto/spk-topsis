@@ -14,7 +14,7 @@ class M_master extends CI_Model
         $this->db->select('*')
         ->from('tb_siswa')
         ->where(['is_deleted' => 0])
-        ->order_by('created_at DESC')
+        ->order_by('nama ASC')
         ;
 
         if (!empty($params) && isset($params['limit'])) {
@@ -86,12 +86,8 @@ class M_master extends CI_Model
         $this->db->select('*')
         ->from('tb_kategori')
         ->where(['is_deleted' => 0])
-        ->order_by('kode ASC')
+        ->order_by('id ASC')
         ;
-
-        if (!empty($params) && isset($params['limit'])) {
-            $this->db->limit($params['limit']);
-        }
 
         return $this->db->get()->result();
     }
@@ -101,12 +97,14 @@ class M_master extends CI_Model
         $kode = $this->generate_code($this->input->post('kategori'), 'tb_kategori', 'C');
         $kategori = $this->input->post('kategori');
         $jenis = $this->input->post('jenis');
+        $bobot = $this->input->post('bobot');
         $keterangan = $this->input->post('keterangan');
 
         $data = [
             'kode' => $kode,
             'kategori' => $kategori,
             'jenis' => $jenis,
+            'bobot' => $bobot,
             'keterangan' => $keterangan,
             'created_at' => time(),
             'created_by' => $this->session->userdata('user_id')
@@ -121,11 +119,13 @@ class M_master extends CI_Model
         $id = $this->input->post('id');
         $kategori = $this->input->post('kategori');
         $jenis = $this->input->post('jenis');
+        $bobot = $this->input->post('bobot');
         $keterangan = $this->input->post('keterangan');
 
         $data = [
             'kategori' => $kategori,
             'jenis' => $jenis,
+            'bobot' => $bobot,
             'keterangan' => $keterangan,
             'modified_at' => time(),
             'modified_by' => $this->session->userdata('user_id')
@@ -156,7 +156,7 @@ class M_master extends CI_Model
         $this->db->select('a.*')
         ->from('tb_kategori a')
         ->where(['a.is_deleted' => 0])
-        ->order_by('a.kode ASC');
+        ->order_by('a.id ASC');
 
         if (!empty($params) && isset($params['limit'])) {
             $this->db->limit($params['limit']);
@@ -253,6 +253,7 @@ class M_master extends CI_Model
         ->from('tb_penilaian a')
         ->join('tb_siswa b', 'a.siswa_id = b.id')
         ->where(['a.is_deleted' => 0])
+        ->order_by('b.nama ASC');
         ;
         
         $models = $this->db->get()->result();
@@ -275,6 +276,7 @@ class M_master extends CI_Model
         ->from('tb_penilaian a')
         ->join('tb_kategori b', 'a.kategori_id = b.id')
         ->where(['a.siswa_id' => $siswa_id, 'a.is_deleted' => 0])
+        ->order_by('b.id ASC')
         ;
         
         $models = $this->db->get()->result();
