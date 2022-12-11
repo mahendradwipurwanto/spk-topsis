@@ -34,7 +34,7 @@
 						<?php $no = 1;foreach($penilaian as $key => $val):?>
 						<tr>
 							<td class="align-middle">
-								<span class="text-secondary"><?= $no;?></span>
+								<span class="text-secondary"><?= $no++;?></span>
 							</td>
 							<td class="align-middle">
 								<button class="btn btn-secondary btn-xs mb-0" data-bs-toggle="modal"

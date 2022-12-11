@@ -22,6 +22,42 @@ class Master extends CI_Controller
         $this->load->model(['M_master']);
     }
 
+    public function guru()
+    {
+        $data['guru'] = $this->M_master->getGuru();
+        $this->templateback->view('master/guru', $data);
+    }
+
+    function tambahGuru(){
+        if($this->M_master->tambahGuru() == true){
+            $this->session->set_flashdata('notif_success', "Berhasil menambahkan data guru!");
+            redirect(site_url('master/guru'));
+        }else{
+            $this->session->set_flashdata('notif_warning', "Terjadi kesalahaan saat menambahkan data guru, coba lagi nanti!");
+			redirect($this->agent->referrer());
+        }
+    }
+
+    function editGuru(){
+        if($this->M_master->editGuru() == true){
+            $this->session->set_flashdata('notif_success', "Berhasil mengubah data guru!");
+            redirect(site_url('master/guru'));
+        }else{
+            $this->session->set_flashdata('notif_warning', "Terjadi kesalahaan saat mengubah data guru, coba lagi nanti!");
+			redirect($this->agent->referrer());
+        }
+    }
+
+    function hapusGuru(){
+        if($this->M_master->hapusGuru() == true){
+            $this->session->set_flashdata('notif_success', "Berhasil menghapus data guru!");
+            redirect(site_url('master/guru'));
+        }else{
+            $this->session->set_flashdata('notif_warning', "Terjadi kesalahaan saat menghapus data siswa, coba lagi nanti!");
+			redirect($this->agent->referrer());
+        }
+    }
+
     public function siswa()
     {
         $data['siswa'] = $this->M_master->getSiswa();

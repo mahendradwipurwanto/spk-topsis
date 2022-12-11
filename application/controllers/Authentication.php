@@ -16,13 +16,12 @@ class Authentication extends CI_Controller
         if ($this->session->userdata('logged_in') == true || $this->session->userdata('logged_in')) {
             $this->session->set_flashdata('warning', 'Berhasil masuk ke akun.');
 
-            if($this->session->userdata('role') == 1) {
+            if ($this->session->userdata('role') == 1) {
                 redirect(site_url('admin'));
-            }else {
+            } else {
                 redirect(site_url('logout'));
             }
         } else {
-            
             // if(strpos($_SERVER['SERVER_NAME'], 'localhost') !== FALSE){
             //     $_POST['email'] = 'admin@spkbansos.com';
             //     $_POST['password'] = '12341234';
@@ -89,9 +88,15 @@ class Authentication extends CI_Controller
                     $this->session->set_flashdata('notif_success', 'Anda telah masuk. Silahkan melanjutkan aktivitas anda!');
                     redirect($this->session->userdata('redirect'));
                 } else {
-                    if($user->role == 1) {
+                    if ($user->role == 1) {
                         $this->session->set_flashdata('notif_success', "Selamat datang admin!");
                         redirect(site_url('admin'));
+                    } elseif ($user->role == 2) {
+                        $this->session->set_flashdata('notif_success', "Selamat datang guru!");
+                        redirect(site_url('guru'));
+                    } elseif ($user->role == 3) {
+                        $this->session->set_flashdata('notif_success', "Selamat datang siswa!");
+                        redirect(site_url('siswa'));
                     } else {
                         redirect(site_url('logout'));
                     }
@@ -153,9 +158,9 @@ class Authentication extends CI_Controller
 
                     $this->session->set_flashdata('success', "Berhasil mendaftaran akun Anda!");
 
-                    if($this->session->userdata('role') == 1) {
+                    if ($this->session->userdata('role') == 1) {
                         redirect(site_url('admin'));
-                    } elseif($this->session->userdata('role') == 2) {
+                    } elseif ($this->session->userdata('role') == 2) {
                         redirect(site_url('pengguna'));
                     } else {
                         redirect(site_url('logout'));

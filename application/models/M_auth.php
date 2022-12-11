@@ -14,6 +14,7 @@ class M_auth extends CI_Model
         $this->db->select('*');
         $this->db->from('tb_auth');
         $this->db->where('email', $email);
+        $this->db->where('is_deleted', 0);
         $query = $this->db->get();
 
         // jika hasil dari query diatas memiliki lebih dari 0 record
@@ -29,6 +30,7 @@ class M_auth extends CI_Model
         $this->db->select('*');
         $this->db->from('tb_auth');
         $this->db->where('email', $email);
+        $this->db->where('is_deleted', 0);
         $query = $this->db->get();
 
         // jika hasil dari query diatas memiliki lebih dari 0 record
@@ -44,6 +46,7 @@ class M_auth extends CI_Model
         $this->db->select('*');
         $this->db->from('tb_auth');
         $this->db->where('user_id', $user_id);
+        $this->db->where('is_deleted', 0);
         ;
         $query = $this->db->get();
 

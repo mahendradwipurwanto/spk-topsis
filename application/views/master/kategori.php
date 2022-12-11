@@ -3,8 +3,10 @@
 		<div class="card">
 			<div class="card-header pb-0">
 				<h4 class="card-title-header">Data Kriteria
+					<?php if($this->session->userdata('role') == 1):?>
 					<button type="button" class="btn btn-primary btn-sm float-end" data-bs-toggle="modal"
 						data-bs-target="#tambah"><i class="fas fa-plus"></i> Tambah</button>
+					<?php endif;?>
 				</h4>
 			</div>
 			<div class="card-body pt-0">
@@ -23,7 +25,9 @@
 							<th width="50%"
 								class="text-uppercase text-secondary text-left px-2 text-xs font-weight-bolder opacity-7">
 								Keterangan</th>
+							<?php if($this->session->userdata('role') == 1):?>
 							<th width="10%" class="text-secondary text-left px-2 opacity-7"></th>
+							<?php endif;?>
 						</tr>
 					</thead>
 					<tbody>
@@ -48,6 +52,7 @@
 							<td class="align-middle">
 								<span class="text-secondary"><?= $val->keterangan;?></span>
 							</td>
+							<?php if($this->session->userdata('role') == 1):?>
 							<td class="align-middle">
 								<button class="btn btn-secondary font-weight-bold btn-xs mb-0" data-bs-toggle="modal"
 									data-bs-target="#edit-<?= $val->id;?>">
@@ -58,6 +63,7 @@
 									Hapus
 								</button>
 							</td>
+							<?php endif;?>
 						</tr>
 
 						<!-- Modal -->

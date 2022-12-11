@@ -13,6 +13,7 @@
   	<hr class="horizontal dark mt-0">
   	<div class="collapse navbar-collapse  w-auto " id="sidenav-collapse-main">
   		<ul class="navbar-nav">
+  			<?php if($this->session->userdata('role') == 1):?>
   			<li class="nav-item" id="sidebar-dashboard">
   				<a class="nav-link <?= $this->uri->segment(1) == 'admin' && empty($this->uri->segment(2)) ? 'active' : '';?>"
   					href="<?= site_url('admin');?>">
@@ -26,12 +27,22 @@
   			<li class="nav-item mt-3">
   				<h6 class="ps-4 ms-2 text-uppercase text-xs font-weight-bolder opacity-6">Master</h6>
   			</li>
+  			<li class="nav-item" id="sidebar-guru">
+  				<a class="nav-link <?= $this->uri->segment(1) == 'master' && $this->uri->segment(2) == 'guru' ? 'active' : '';?>"
+  					href="<?= site_url('master/guru');?>">
+  					<div
+  						class="icon icon-shape icon-sm border-radius-md text-center me-2 d-flex align-items-center justify-content-center">
+  						<i class="fas fa-users text-primary text-sm opacity-10"></i>
+  					</div>
+  					<span class="nav-link-text ms-1">Data Guru</span>
+  				</a>
+  			</li>
   			<li class="nav-item" id="sidebar-siswa">
   				<a class="nav-link <?= $this->uri->segment(1) == 'master' && $this->uri->segment(2) == 'siswa' ? 'active' : '';?>"
   					href="<?= site_url('master/siswa');?>">
   					<div
   						class="icon icon-shape icon-sm border-radius-md text-center me-2 d-flex align-items-center justify-content-center">
-                        <i class="fas fa-users text-primary text-sm opacity-10"></i>
+  						<i class="fas fa-users text-primary text-sm opacity-10"></i>
   					</div>
   					<span class="nav-link-text ms-1">Data Siswa</span>
   				</a>
@@ -59,7 +70,7 @@
   			<li class="nav-item mt-3">
   				<h6 class="ps-4 ms-2 text-uppercase text-xs font-weight-bolder opacity-6">Penilaian</h6>
   			</li>
-  			<li class="nav-item" id="sidebar-penilaian">
+  			<li class="nav-item d-none" id="sidebar-penilaian">
   				<a class="nav-link <?= $this->uri->segment(1) == 'master' && $this->uri->segment(2) == 'penilaian' ? 'active' : '';?>"
   					href="<?= site_url('master/penilaian');?>">
   					<div
@@ -102,6 +113,114 @@
   					<span class="nav-link-text ms-1">Pengaturan</span>
   				</a>
   			</li>
+  			<?php endif;?>
+  			<?php if($this->session->userdata('role') == 2):?>
+  			<li class="nav-item" id="sidebar-dashboard">
+  				<a class="nav-link <?= $this->uri->segment(1) == 'admin' && empty($this->uri->segment(2)) ? 'active' : '';?>"
+  					href="<?= site_url('admin');?>">
+  					<div
+  						class="icon icon-shape icon-sm border-radius-md text-center me-2 d-flex align-items-center justify-content-center">
+  						<i class="ni ni-tv-2 text-primary text-sm opacity-10"></i>
+  					</div>
+  					<span class="nav-link-text ms-1">Dashboard</span>
+  				</a>
+  			</li>
+  			<li class="nav-item mt-3">
+  				<h6 class="ps-4 ms-2 text-uppercase text-xs font-weight-bolder opacity-6">Data</h6>
+  			</li>
+  			<li class="nav-item" id="sidebar-siswa">
+  				<a class="nav-link <?= $this->uri->segment(1) == 'master' && $this->uri->segment(2) == 'siswa' ? 'active' : '';?>"
+  					href="<?= site_url('master/siswa');?>">
+  					<div
+  						class="icon icon-shape icon-sm border-radius-md text-center me-2 d-flex align-items-center justify-content-center">
+  						<i class="fas fa-users text-primary text-sm opacity-10"></i>
+  					</div>
+  					<span class="nav-link-text ms-1">Data Siswa</span>
+  				</a>
+  			</li>
+  			<li class="nav-item" id="sidebar-kategori">
+  				<a class="nav-link <?= $this->uri->segment(1) == 'master' && $this->uri->segment(2) == 'kategori' ? 'active' : '';?>"
+  					href="<?= site_url('master/kategori');?>">
+  					<div
+  						class="icon icon-shape icon-sm border-radius-md text-center me-2 d-flex align-items-center justify-content-center">
+  						<i class="fas fa-boxes text-primary text-sm opacity-10"></i>
+  					</div>
+  					<span class="nav-link-text ms-1">Data Kriteria</span>
+  				</a>
+  			</li>
+  			<li class="nav-item mt-3">
+  				<h6 class="ps-4 ms-2 text-uppercase text-xs font-weight-bolder opacity-6">Penilaian</h6>
+  			</li>
+  			<li class="nav-item" id="sidebar-penilaian">
+  				<a class="nav-link <?= $this->uri->segment(1) == 'master' && $this->uri->segment(2) == 'penilaian' ? 'active' : '';?>"
+  					href="<?= site_url('master/penilaian');?>">
+  					<div
+  						class="icon icon-shape icon-sm border-radius-md text-center me-2 d-flex align-items-center justify-content-center">
+  						<i class="fas fa-stamp text-primary text-sm opacity-10"></i>
+  					</div>
+  					<span class="nav-link-text ms-1">Data Penilaian</span>
+  				</a>
+  			</li>
+  			<li class="nav-item" id="sidebar-perhitungan">
+  				<a class="nav-link <?= $this->uri->segment(1) == 'penilaian' && $this->uri->segment(2) == 'perhitungan' ? 'active' : '';?>"
+  					href="<?= site_url('penilaian/perhitungan');?>">
+  					<div
+  						class="icon icon-shape icon-sm border-radius-md text-center me-2 d-flex align-items-center justify-content-center">
+  						<i class="fas fa-calculator text-primary text-sm opacity-10"></i>
+  					</div>
+  					<span class="nav-link-text ms-1">Data Perhitungan</span>
+  				</a>
+  			</li>
+  			<li class="nav-item" id="sidebar-hasil">
+  				<a class="nav-link <?= $this->uri->segment(1) == 'penilaian' && $this->uri->segment(2) == 'hasil-akhir' ? 'active' : '';?>"
+  					href="<?= site_url('penilaian/hasil-akhir');?>">
+  					<div
+  						class="icon icon-shape icon-sm border-radius-md text-center me-2 d-flex align-items-center justify-content-center">
+  						<i class="fas fa-chart-bar text-primary text-sm opacity-10"></i>
+  					</div>
+  					<span class="nav-link-text ms-1">Hasil Akhir</span>
+  				</a>
+  			</li>
+  			<?php endif;?>
+
+  			<?php if($this->session->userdata('role') == 3):?>
+  			<li class="nav-item" id="sidebar-dashboard">
+  				<a class="nav-link <?= $this->uri->segment(1) == 'admin' && empty($this->uri->segment(2)) ? 'active' : '';?>"
+  					href="<?= site_url('admin');?>">
+  					<div
+  						class="icon icon-shape icon-sm border-radius-md text-center me-2 d-flex align-items-center justify-content-center">
+  						<i class="ni ni-tv-2 text-primary text-sm opacity-10"></i>
+  					</div>
+  					<span class="nav-link-text ms-1">Dashboard</span>
+  				</a>
+  			</li>
+  			<li class="nav-item mt-3">
+  				<h6 class="ps-4 ms-2 text-uppercase text-xs font-weight-bolder opacity-6">Data</h6>
+  			</li>
+  			<li class="nav-item" id="sidebar-siswa">
+  				<a class="nav-link <?= $this->uri->segment(1) == 'master' && $this->uri->segment(2) == 'siswa' ? 'active' : '';?>"
+  					href="<?= site_url('master/siswa');?>">
+  					<div
+  						class="icon icon-shape icon-sm border-radius-md text-center me-2 d-flex align-items-center justify-content-center">
+  						<i class="fas fa-users text-primary text-sm opacity-10"></i>
+  					</div>
+  					<span class="nav-link-text ms-1">Data Siswa</span>
+  				</a>
+  			</li>
+  			<li class="nav-item mt-3">
+  				<h6 class="ps-4 ms-2 text-uppercase text-xs font-weight-bolder opacity-6">Penilaian</h6>
+  			</li>
+  			<li class="nav-item" id="sidebar-hasil">
+  				<a class="nav-link <?= $this->uri->segment(1) == 'penilaian' && $this->uri->segment(2) == 'hasil-akhir' ? 'active' : '';?>"
+  					href="<?= site_url('penilaian/hasil-akhir');?>">
+  					<div
+  						class="icon icon-shape icon-sm border-radius-md text-center me-2 d-flex align-items-center justify-content-center">
+  						<i class="fas fa-chart-bar text-primary text-sm opacity-10"></i>
+  					</div>
+  					<span class="nav-link-text ms-1">Hasil Akhir</span>
+  				</a>
+  			</li>
+  			<?php endif;?>
   		</ul>
   	</div>
   	<div class="sidenav-footer mx-3 ">

@@ -9,12 +9,119 @@ class M_master extends CI_Model
         parent::__construct();
     }
 
+    public function getGuru($params = [])
+    {
+        $this->db->select('a.*, b.nama, b.email')
+        ->from('tb_guru a')
+        ->join('tb_auth b', 'a.user_id = b.user_id')
+        ->where(['a.is_deleted' => 0, 'b.role' => 2])
+        ->order_by('b.nama ASC')
+        ;
+
+        if (!empty($params) && isset($params['limit'])) {
+            $this->db->limit($params['limit']);
+        }
+
+        return $this->db->get()->result();
+    }
+
+    function tambahGuru(){
+
+        $email = $this->input->post('email');
+        $nama = $this->input->post('nama');
+        $password = $this->input->post('password');
+
+        $nip = $this->input->post('nip');
+        $jenkel = $this->input->post('jenkel');
+        $alamat = $this->input->post('alamat');
+
+        
+
+        $auth = [
+            'nama' => $nama,
+            'email' => $email,
+            'password' => password_hash($password, PASSWORD_DEFAULT),
+            'role' => 2,
+            'created_at' => time(),
+        ];
+
+        $this->db->insert('tb_auth', $auth);
+
+        $data = [
+            'user_id' => $this->db->insert_id(),
+            'nip' => $nip,
+            'jenkel' => $jenkel,
+            'alamat' => $alamat,
+            'created_at' => time(),
+            'created_by' => $this->session->userdata('user_id')
+        ];
+
+        $this->db->insert('tb_guru', $data);
+        return $this->db->affected_rows() == true;
+    }
+
+    function editGuru(){
+
+        $id = $this->input->post('id');
+        $user_id = $this->input->post('user_id');
+        $nama = $this->input->post('nama');
+        $nip = $this->input->post('nip');
+        $jenkel = $this->input->post('jenkel');
+        $alamat = $this->input->post('alamat');
+
+        $auth = [
+            'nama' => $nama,
+        ];
+
+        $this->db->where('user_id', $user_id);
+        $this->db->update('tb_auth', $auth);
+
+
+        $data = [
+            'nip' => $nip,
+            'jenkel' => $jenkel,
+            'alamat' => $alamat,
+            'modified_at' => time(),
+            'modified_by' => $this->session->userdata('user_id')
+        ];
+
+        $this->db->where('id', $id);
+        $this->db->update('tb_guru', $data);
+        return $this->db->affected_rows() == true;
+    }
+
+    function hapusGuru(){
+
+        $id = $this->input->post('id');
+        $user_id = $this->input->post('user_id');
+
+        $data = [
+            'is_deleted' => 1,
+            'modified_at' => time(),
+            'modified_by' => $this->session->userdata('user_id')
+        ];
+
+        $this->db->where('id', $id);
+        $this->db->update('tb_guru', $data);
+
+        $data = [
+            'is_deleted' => 1,
+            'modified_at' => time(),
+            'modified_by' => $this->session->userdata('user_id')
+        ];
+
+        $this->db->where('user_id', $user_id);
+        $this->db->update('tb_auth', $data);
+        return $this->db->affected_rows() == true;
+    }
+
     public function getSiswa($params = [])
     {
-        $this->db->select('*')
-        ->from('tb_siswa')
-        ->where(['is_deleted' => 0])
-        ->order_by('nama ASC')
+        $this->db->select('a.*, b.nama, b.email')
+        ->from('tb_siswa a')
+        ->join('tb_auth b', 'a.user_id = b.user_id')
+        ->where(['a.is_deleted' => 0, 'b.role' => 3])
+        ->order_by('b.nama ASC')
         ;
 
         if (!empty($params) && isset($params['limit'])) {
@@ -26,13 +133,26 @@ class M_master extends CI_Model
 
     function tambahSiswa(){
 
+        $email = $this->input->post('email');
         $nama = $this->input->post('nama');
+        $password = $this->input->post('password');
+
         $nip = $this->input->post('nip');
         $jenkel = $this->input->post('jenkel');
         $alamat = $this->input->post('alamat');
 
-        $data = [
+        $auth = [
             'nama' => $nama,
+            'email' => $email,
+            'password' => password_hash($password, PASSWORD_DEFAULT),
+            'role' => 3,
+            'created_at' => time(),
+        ];
+
+        $this->db->insert('tb_auth', $auth);
+
+        $data = [
+            'user_id' => $this->db->insert_id(),
             'nip' => $nip,
             'jenkel' => $jenkel,
             'alamat' => $alamat,
@@ -47,13 +167,21 @@ class M_master extends CI_Model
     function editSiswa(){
 
         $id = $this->input->post('id');
+        $user_id = $this->input->post('user_id');
         $nama = $this->input->post('nama');
         $nip = $this->input->post('nip');
         $jenkel = $this->input->post('jenkel');
         $alamat = $this->input->post('alamat');
 
-        $data = [
+        $auth = [
             'nama' => $nama,
+        ];
+
+        $this->db->where('user_id', $user_id);
+        $this->db->update('tb_auth', $auth);
+
+
+        $data = [
             'nip' => $nip,
             'jenkel' => $jenkel,
             'alamat' => $alamat,
@@ -249,11 +377,12 @@ class M_master extends CI_Model
     }
 
     function getPenilaian(){
-        $this->db->select('a.*, b.id, b.nama, b.nip')
+        $this->db->select('a.*, b.id, c.nama, b.nip')
         ->from('tb_penilaian a')
         ->join('tb_siswa b', 'a.siswa_id = b.id')
+        ->join('tb_auth c', 'b.user_id = c.user_id')
         ->where(['a.is_deleted' => 0])
-        ->order_by('b.nama ASC');
+        ->order_by('c.nama ASC');
         ;
         
         $models = $this->db->get()->result();

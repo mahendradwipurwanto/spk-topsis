@@ -2,7 +2,7 @@
 	<div class="col-xl-12 mb-4">
 		<div class="card">
 			<div class="card-header pb-0">
-				<h4 class="card-title-header">Data Siswa
+				<h4 class="card-title-header">Data Guru
 					<button type="button" class="btn btn-primary btn-sm float-end" data-bs-toggle="modal"
 						data-bs-target="#tambah"><i class="fas fa-user-plus"></i> Tambah</button>
 				</h4>
@@ -13,6 +13,7 @@
 						<tr>
 							<th width="5%" class="text-uppercase text-left px-2 text-secondary text-xs font-weight-bolder opacity-7">No</th>
 							<th width="20%" class="text-uppercase text-left px-2 text-secondary text-xs font-weight-bolder opacity-7">Nama</th>
+							<th width="20%" class="text-uppercase text-left px-2 text-secondary text-xs font-weight-bolder opacity-7">Email</th>
 							<th width="10%" class="text-uppercase text-left px-2 text-secondary text-xs font-weight-bolder opacity-7">
 								Jenis Kelamin</th>
 							<th width="50%" class="text-uppercase text-left px-2 text-secondary text-xs font-weight-bolder opacity-7">
@@ -21,8 +22,8 @@
 						</tr>
 					</thead>
 					<tbody>
-						<?php if(!empty($siswa)):?>
-						<?php $no = 1;foreach($siswa as $key => $val):?>
+						<?php if(!empty($guru)):?>
+						<?php $no = 1;foreach($guru as $key => $val):?>
 						<tr>
 							<td class="align-middle">
 								<span class="text-secondary"><?= $no++;?></span>
@@ -31,9 +32,12 @@
 								<div class="d-flex px-2 py-1">
 									<div class="d-flex flex-column justify-content-center">
 										<h6 class="mb-0 text-xs"><?= $val->nama;?></h6>
-										<p class="text-xs text-secondary mb-0">NIS: <?= $val->nip;?></p>
+										<p class="text-xs text-secondary mb-0">NIP: <?= $val->nip;?></p>
 									</div>
 								</div>
+							</td>
+							<td class="align-middle">
+								<span class="text-secondary"><?= $val->email;?></span>
 							</td>
 							<td class="align-middle">
 								<span class="text-secondary"><?= $val->jenkel;?></span>
@@ -59,26 +63,26 @@
 							<div class="modal-dialog modal-dialog-centered" role="document">
 								<div class="modal-content">
 									<div class="modal-header">
-										<h5 class="modal-title" id="exampleModalLabel">Edit siswa</h5>
+										<h5 class="modal-title" id="exampleModalLabel">Edit guru</h5>
 										<button type="button" class="btn-close" data-bs-dismiss="modal"
 											aria-label="Close">
 											<span aria-hidden="true">&times;</span>
 										</button>
 									</div>
 									<div class="modal-body">
-										<form action="<?= site_url('master/editSiswa');?>" method="POST">
+										<form action="<?= site_url('master/editGuru');?>" method="POST">
 											<input type="hidden" name="id" value="<?= $val->id;?>">
 											<input type="hidden" name="user_id" value="<?= $val->user_id;?>">
 											<div class="mb-3">
-												<label for="formNamaSiswa">Nama Lengkap</label>
+												<label for="formNamaGuru">Nama Lengkap</label>
 												<input type="text" class="form-control form-control-sm" name="nama"
 													value="<?= $val->nama;?>"
-													placeholder="Nama Lengkap siswa" required>
+													placeholder="Nama Lengkap guru" required>
 											</div>
 											<div class="mb-3">
-												<label for="formNIKSiswa">NIP</label>
+												<label for="formNIKGuru">NIP</label>
 												<input type="text" class="form-control form-control-sm"
-													id="formNIKSiswa" name="nip" placeholder="NIK siswa"
+													id="formNIKGuru" name="nip" placeholder="NIK guru"
 													value="<?= $val->nip;?>" required>
 											</div>
 											<div class="mb-3">
@@ -101,10 +105,10 @@
 												</div>
 											</div>
 											<div class="mb-3">
-												<label for="formAlamatSiswa">Alamat <small
+												<label for="formAlamatGuru">Alamat <small
 														class="text-secondary">(optional)</small></label>
 												<textarea type="text" class="form-control form-control-sm"
-													id="formAlamatSiswa" name="alamat" placeholder="Alamat"><?= $val->alamat;?></textarea>
+													id="formAlamatGuru" name="alamat" placeholder="Alamat"><?= $val->alamat;?></textarea>
 											</div>
 											<div class="modal-footer px-0 pb-0 mb-0">
 												<button type="button" class="btn bg-gradient-secondary"
@@ -122,11 +126,11 @@
 							<div class="modal-dialog modal-danger modal-dialog-centered modal-" role="document">
 								<div class="modal-content">
 									<div class="modal-body">
-										<form action="<?= site_url('master/hapusSiswa');?>" method="post">
+										<form action="<?= site_url('master/hapusGuru');?>" method="post">
 											<input type="hidden" name="id" value="<?= $val->id;?>">
 											<div class="py-3 text-center">
 												<i class="ni ni-bell-55 ni-3x"></i>
-												<h4 class="text-gradient text-danger mt-4">Hapus data siswa?</h4>
+												<h4 class="text-gradient text-danger mt-4">Hapus data guru?</h4>
 												<p>Apakah anda yakin ingin menghapus data ini?</p>
 											</div>
 											<div class="modal-footer px-0 pb-0 mb-0">
@@ -157,30 +161,30 @@
 	<div class="modal-dialog modal-dialog-centered" role="document">
 		<div class="modal-content">
 			<div class="modal-header">
-				<h5 class="modal-title" id="exampleModalLabel">Tambah siswa</h5>
+				<h5 class="modal-title" id="exampleModalLabel">Tambah guru</h5>
 				<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close">
 					<span aria-hidden="true">&times;</span>
 				</button>
 			</div>
 			<div class="modal-body">
-				<form action="<?= site_url('master/tambahSiswa');?>" method="POST">
+				<form action="<?= site_url('master/tambahGuru');?>" method="POST">
 					<div class="mb-3">
-						<label for="formNamaSiswa">Nama Lengkap</label>
+						<label for="formNamaGuru">Nama Lengkap</label>
 						<input type="text" class="form-control form-control-sm" name="nama"
-							placeholder="Nama lengkap siswa" required>
+							placeholder="Nama lengkap guru" required>
 					</div>
 					<div class="mb-3">
-						<label for="formNIKSiswa">NIS</label>
-						<input type="text" class="form-control form-control-sm" id="formNIKSiswa" name="nip"
-							placeholder="NIS siswa" required>
+						<label for="formNIKGuru">NIP</label>
+						<input type="text" class="form-control form-control-sm" id="formNIKGuru" name="nip"
+							placeholder="NIS guru" required>
 					</div>
 					<div class="mb-3">
-						<label for="formEmailSiswa">Email</label>
+						<label for="formEmailGuru">Email</label>
 						<input type="email" class="form-control form-control-sm" name="email"
 							placeholder="Email" required>
 					</div>
 					<div class="mb-3">
-						<label for="formPasswordSiswa">Password Lengkap</label>
+						<label for="formPasswordGuru">Password Lengkap</label>
 						<input type="password" class="form-control form-control-sm" name="password"
 							placeholder="Password" required>
 					</div>
@@ -200,9 +204,9 @@
 						</div>
 					</div>
 					<div class="mb-3">
-						<label for="formAlamatSiswa">Alamat <small class="text-secondary">(optional)</small></label>
-						<textarea type="text" class="form-control form-control-sm" id="formAlamatSiswa" name="alamat"
-							placeholder="Alamat siswa"></textarea>
+						<label for="formAlamatGuru">Alamat <small class="text-secondary">(optional)</small></label>
+						<textarea type="text" class="form-control form-control-sm" id="formAlamatGuru" name="alamat"
+							placeholder="Alamat guru"></textarea>
 					</div>
 					<div class="modal-footer px-0 pb-0 mb-0">
 						<button type="button" class="btn bg-gradient-secondary" data-bs-dismiss="modal">Batal</button>

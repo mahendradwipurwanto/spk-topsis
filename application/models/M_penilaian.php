@@ -18,9 +18,10 @@ class M_penilaian extends CI_Model
     }
 
     function getNormalisasiALl(){
-        $this->db->select('a.*, b.id, b.nama, b.nip')
+        $this->db->select('a.*, b.id, c.nama, b.nip')
         ->from('tb_penilaian a')
         ->join('tb_siswa b', 'a.siswa_id = b.id')
+        ->join('tb_auth c', 'b.user_id = c.user_id')
         ->where(['a.is_deleted' => 0])
         ;
         
@@ -63,9 +64,10 @@ class M_penilaian extends CI_Model
     }
 
     function getMatrixR(){
-        $this->db->select('a.*, b.id, b.nama, b.nip')
+        $this->db->select('a.*, b.id, c.nama, b.nip')
         ->from('tb_penilaian a')
         ->join('tb_siswa b', 'a.siswa_id = b.id')
+        ->join('tb_auth c', 'b.user_id = c.user_id')
         ->where(['a.is_deleted' => 0])
         ;
         
@@ -111,9 +113,10 @@ class M_penilaian extends CI_Model
     }
 
     function getBobotMatrix(){
-        $this->db->select('a.*, b.id, b.nama, b.nip')
+        $this->db->select('a.*, b.id, c.nama, b.nip')
         ->from('tb_penilaian a')
         ->join('tb_siswa b', 'a.siswa_id = b.id')
+        ->join('tb_auth c', 'b.user_id = c.user_id')
         ->where(['a.is_deleted' => 0])
         ;
         
@@ -178,9 +181,10 @@ class M_penilaian extends CI_Model
     }
 
     function getDPlus(){
-        $this->db->select('a.*, b.id, b.nama, b.nip')
+        $this->db->select('a.*, b.id, c.nama, b.nip')
         ->from('tb_penilaian a')
         ->join('tb_siswa b', 'a.siswa_id = b.id')
+        ->join('tb_auth c', 'b.user_id = c.user_id')
         ->where(['a.is_deleted' => 0])
         ;
         
@@ -258,9 +262,10 @@ class M_penilaian extends CI_Model
     }
 
     function getDMin(){
-        $this->db->select('a.*, b.id, b.nama, b.nip')
+        $this->db->select('a.*, b.id, c.nama, b.nip')
         ->from('tb_penilaian a')
         ->join('tb_siswa b', 'a.siswa_id = b.id')
+        ->join('tb_auth c', 'b.user_id = c.user_id')
         ->where(['a.is_deleted' => 0])
         ;
         
